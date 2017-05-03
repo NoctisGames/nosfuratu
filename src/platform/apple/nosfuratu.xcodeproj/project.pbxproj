@@ -163,6 +163,44 @@
 		BB85AEDC1EBA2FB600CC6BCA /* texture_024.ngt in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEAB1EBA2FB600CC6BCA /* texture_024.ngt */; };
 		BB85AEDD1EBA2FB600CC6BCA /* texture_025.ngt in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEAC1EBA2FB600CC6BCA /* texture_025.ngt */; };
 		BB85AEDE1EBA2FB600CC6BCA /* texture_025.ngt in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEAC1EBA2FB600CC6BCA /* texture_025.ngt */; };
+		BB85AEE51EBA3A1300CC6BCA /* shader_001_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEDF1EBA3A1300CC6BCA /* shader_001_frag.ngs */; };
+		BB85AEE61EBA3A1300CC6BCA /* shader_001_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEDF1EBA3A1300CC6BCA /* shader_001_frag.ngs */; };
+		BB85AEE71EBA3A1300CC6BCA /* shader_001_vert.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEE01EBA3A1300CC6BCA /* shader_001_vert.ngs */; };
+		BB85AEE81EBA3A1300CC6BCA /* shader_001_vert.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEE01EBA3A1300CC6BCA /* shader_001_vert.ngs */; };
+		BB85AEE91EBA3A1300CC6BCA /* shader_002_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEE11EBA3A1300CC6BCA /* shader_002_frag.ngs */; };
+		BB85AEEA1EBA3A1300CC6BCA /* shader_002_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEE11EBA3A1300CC6BCA /* shader_002_frag.ngs */; };
+		BB85AEEB1EBA3A1300CC6BCA /* shader_002_vert.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEE21EBA3A1300CC6BCA /* shader_002_vert.ngs */; };
+		BB85AEEC1EBA3A1300CC6BCA /* shader_002_vert.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEE21EBA3A1300CC6BCA /* shader_002_vert.ngs */; };
+		BB85AEED1EBA3A1300CC6BCA /* shader_003_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEE31EBA3A1300CC6BCA /* shader_003_frag.ngs */; };
+		BB85AEEE1EBA3A1300CC6BCA /* shader_003_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEE31EBA3A1300CC6BCA /* shader_003_frag.ngs */; };
+		BB85AEEF1EBA3A1300CC6BCA /* shader_003_vert.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEE41EBA3A1300CC6BCA /* shader_003_vert.ngs */; };
+		BB85AEF01EBA3A1300CC6BCA /* shader_003_vert.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEE41EBA3A1300CC6BCA /* shader_003_vert.ngs */; };
+		BB85AF041EBA3A4800CC6BCA /* shader_004_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEF71EBA3A4800CC6BCA /* shader_004_frag.ngs */; };
+		BB85AF051EBA3A4800CC6BCA /* shader_004_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEF71EBA3A4800CC6BCA /* shader_004_frag.ngs */; };
+		BB85AF061EBA3A4800CC6BCA /* shader_005_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEF81EBA3A4800CC6BCA /* shader_005_frag.ngs */; };
+		BB85AF071EBA3A4800CC6BCA /* shader_005_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEF81EBA3A4800CC6BCA /* shader_005_frag.ngs */; };
+		BB85AF081EBA3A4800CC6BCA /* shader_006_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEF91EBA3A4800CC6BCA /* shader_006_frag.ngs */; };
+		BB85AF091EBA3A4800CC6BCA /* shader_006_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEF91EBA3A4800CC6BCA /* shader_006_frag.ngs */; };
+		BB85AF0A1EBA3A4800CC6BCA /* shader_007_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFA1EBA3A4800CC6BCA /* shader_007_frag.ngs */; };
+		BB85AF0B1EBA3A4800CC6BCA /* shader_007_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFA1EBA3A4800CC6BCA /* shader_007_frag.ngs */; };
+		BB85AF0C1EBA3A4800CC6BCA /* shader_008_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFB1EBA3A4800CC6BCA /* shader_008_frag.ngs */; };
+		BB85AF0D1EBA3A4800CC6BCA /* shader_008_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFB1EBA3A4800CC6BCA /* shader_008_frag.ngs */; };
+		BB85AF0E1EBA3A4800CC6BCA /* shader_008_vert.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFC1EBA3A4800CC6BCA /* shader_008_vert.ngs */; };
+		BB85AF0F1EBA3A4800CC6BCA /* shader_008_vert.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFC1EBA3A4800CC6BCA /* shader_008_vert.ngs */; };
+		BB85AF101EBA3A4800CC6BCA /* shader_009_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFD1EBA3A4800CC6BCA /* shader_009_frag.ngs */; };
+		BB85AF111EBA3A4800CC6BCA /* shader_009_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFD1EBA3A4800CC6BCA /* shader_009_frag.ngs */; };
+		BB85AF121EBA3A4800CC6BCA /* shader_010_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFE1EBA3A4800CC6BCA /* shader_010_frag.ngs */; };
+		BB85AF131EBA3A4800CC6BCA /* shader_010_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFE1EBA3A4800CC6BCA /* shader_010_frag.ngs */; };
+		BB85AF141EBA3A4800CC6BCA /* shader_010_vert.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFF1EBA3A4800CC6BCA /* shader_010_vert.ngs */; };
+		BB85AF151EBA3A4800CC6BCA /* shader_010_vert.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AEFF1EBA3A4800CC6BCA /* shader_010_vert.ngs */; };
+		BB85AF161EBA3A4800CC6BCA /* shader_011_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AF001EBA3A4800CC6BCA /* shader_011_frag.ngs */; };
+		BB85AF171EBA3A4800CC6BCA /* shader_011_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AF001EBA3A4800CC6BCA /* shader_011_frag.ngs */; };
+		BB85AF181EBA3A4800CC6BCA /* shader_012_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AF011EBA3A4800CC6BCA /* shader_012_frag.ngs */; };
+		BB85AF191EBA3A4800CC6BCA /* shader_012_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AF011EBA3A4800CC6BCA /* shader_012_frag.ngs */; };
+		BB85AF1A1EBA3A4800CC6BCA /* shader_013_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AF021EBA3A4800CC6BCA /* shader_013_frag.ngs */; };
+		BB85AF1B1EBA3A4800CC6BCA /* shader_013_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AF021EBA3A4800CC6BCA /* shader_013_frag.ngs */; };
+		BB85AF1C1EBA3A4800CC6BCA /* shader_014_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AF031EBA3A4800CC6BCA /* shader_014_frag.ngs */; };
+		BB85AF1D1EBA3A4800CC6BCA /* shader_014_frag.ngs in Resources */ = {isa = PBXBuildFile; fileRef = BB85AF031EBA3A4800CC6BCA /* shader_014_frag.ngs */; };
 		BBAEF7631EA95B5800F0866E /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF55E1EA95B5800F0866E /* Entity.cpp */; };
 		BBAEF7641EA95B5800F0866E /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF55E1EA95B5800F0866E /* Entity.cpp */; };
 		BBAEF7651EA95B5800F0866E /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5601EA95B5800F0866E /* EntityManager.cpp */; };
@@ -209,18 +247,6 @@
 		BBAEF7BA1EA95B5800F0866E /* OpenGLTextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5C01EA95B5800F0866E /* OpenGLTextureLoader.cpp */; };
 		BBAEF7BB1EA95B5800F0866E /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5C21EA95B5800F0866E /* OpenGLTextureProgram.cpp */; };
 		BBAEF7BC1EA95B5800F0866E /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5C21EA95B5800F0866E /* OpenGLTextureProgram.cpp */; };
-		BBAEF7BD1EA95B5800F0866E /* shader_001_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5C61EA95B5800F0866E /* shader_001_frag.fsh */; };
-		BBAEF7BE1EA95B5800F0866E /* shader_001_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5C61EA95B5800F0866E /* shader_001_frag.fsh */; };
-		BBAEF7BF1EA95B5900F0866E /* shader_001_vert.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5C71EA95B5800F0866E /* shader_001_vert.vsh */; };
-		BBAEF7C01EA95B5900F0866E /* shader_001_vert.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5C71EA95B5800F0866E /* shader_001_vert.vsh */; };
-		BBAEF7C11EA95B5900F0866E /* shader_002_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5C81EA95B5800F0866E /* shader_002_frag.fsh */; };
-		BBAEF7C21EA95B5900F0866E /* shader_002_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5C81EA95B5800F0866E /* shader_002_frag.fsh */; };
-		BBAEF7C31EA95B5900F0866E /* shader_002_vert.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5C91EA95B5800F0866E /* shader_002_vert.vsh */; };
-		BBAEF7C41EA95B5900F0866E /* shader_002_vert.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5C91EA95B5800F0866E /* shader_002_vert.vsh */; };
-		BBAEF7C51EA95B5900F0866E /* shader_003_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5CA1EA95B5800F0866E /* shader_003_frag.fsh */; };
-		BBAEF7C61EA95B5900F0866E /* shader_003_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5CA1EA95B5800F0866E /* shader_003_frag.fsh */; };
-		BBAEF7C71EA95B5900F0866E /* shader_003_vert.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5CB1EA95B5800F0866E /* shader_003_vert.vsh */; };
-		BBAEF7C81EA95B5900F0866E /* shader_003_vert.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF5CB1EA95B5800F0866E /* shader_003_vert.vsh */; };
 		BBAEF7C91EA95B5900F0866E /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5CD1EA95B5800F0866E /* Animation.cpp */; };
 		BBAEF7CA1EA95B5900F0866E /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5CD1EA95B5800F0866E /* Animation.cpp */; };
 		BBAEF7CB1EA95B5900F0866E /* CircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5CF1EA95B5800F0866E /* CircleBatcher.cpp */; };
@@ -347,32 +373,6 @@
 		BBAEF8A21EA95B5900F0866E /* OpenGLTransitionProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF6BF1EA95B5800F0866E /* OpenGLTransitionProgram.cpp */; };
 		BBAEF8A31EA95B5900F0866E /* OpenGLTransScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF6C11EA95B5800F0866E /* OpenGLTransScreenGpuProgramWrapper.cpp */; };
 		BBAEF8A41EA95B5900F0866E /* OpenGLTransScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF6C11EA95B5800F0866E /* OpenGLTransScreenGpuProgramWrapper.cpp */; };
-		BBAEF8A51EA95B5900F0866E /* shader_004_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C41EA95B5800F0866E /* shader_004_frag.fsh */; };
-		BBAEF8A61EA95B5900F0866E /* shader_004_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C41EA95B5800F0866E /* shader_004_frag.fsh */; };
-		BBAEF8A71EA95B5900F0866E /* shader_005_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C51EA95B5800F0866E /* shader_005_frag.fsh */; };
-		BBAEF8A81EA95B5900F0866E /* shader_005_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C51EA95B5800F0866E /* shader_005_frag.fsh */; };
-		BBAEF8A91EA95B5900F0866E /* shader_007_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C61EA95B5800F0866E /* shader_007_frag.fsh */; };
-		BBAEF8AA1EA95B5900F0866E /* shader_007_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C61EA95B5800F0866E /* shader_007_frag.fsh */; };
-		BBAEF8AB1EA95B5900F0866E /* shader_006_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C71EA95B5800F0866E /* shader_006_frag.fsh */; };
-		BBAEF8AC1EA95B5900F0866E /* shader_006_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C71EA95B5800F0866E /* shader_006_frag.fsh */; };
-		BBAEF8AD1EA95B5900F0866E /* shader_009_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C81EA95B5800F0866E /* shader_009_frag.fsh */; };
-		BBAEF8AE1EA95B5900F0866E /* shader_009_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C81EA95B5800F0866E /* shader_009_frag.fsh */; };
-		BBAEF8AF1EA95B5900F0866E /* shader_010_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C91EA95B5800F0866E /* shader_010_frag.fsh */; };
-		BBAEF8B01EA95B5900F0866E /* shader_010_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6C91EA95B5800F0866E /* shader_010_frag.fsh */; };
-		BBAEF8B11EA95B5900F0866E /* shader_010_vert.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CA1EA95B5800F0866E /* shader_010_vert.vsh */; };
-		BBAEF8B21EA95B5900F0866E /* shader_010_vert.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CA1EA95B5800F0866E /* shader_010_vert.vsh */; };
-		BBAEF8B31EA95B5900F0866E /* shader_011_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CB1EA95B5800F0866E /* shader_011_frag.fsh */; };
-		BBAEF8B41EA95B5900F0866E /* shader_011_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CB1EA95B5800F0866E /* shader_011_frag.fsh */; };
-		BBAEF8B51EA95B5900F0866E /* shader_012_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CC1EA95B5800F0866E /* shader_012_frag.fsh */; };
-		BBAEF8B61EA95B5900F0866E /* shader_012_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CC1EA95B5800F0866E /* shader_012_frag.fsh */; };
-		BBAEF8B71EA95B5900F0866E /* shader_013_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CD1EA95B5800F0866E /* shader_013_frag.fsh */; };
-		BBAEF8B81EA95B5900F0866E /* shader_013_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CD1EA95B5800F0866E /* shader_013_frag.fsh */; };
-		BBAEF8B91EA95B5900F0866E /* shader_008_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CE1EA95B5800F0866E /* shader_008_frag.fsh */; };
-		BBAEF8BA1EA95B5900F0866E /* shader_008_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CE1EA95B5800F0866E /* shader_008_frag.fsh */; };
-		BBAEF8BB1EA95B5900F0866E /* shader_008_vert.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CF1EA95B5800F0866E /* shader_008_vert.vsh */; };
-		BBAEF8BC1EA95B5900F0866E /* shader_008_vert.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6CF1EA95B5800F0866E /* shader_008_vert.vsh */; };
-		BBAEF8BD1EA95B5900F0866E /* shader_014_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6D01EA95B5800F0866E /* shader_014_frag.fsh */; };
-		BBAEF8BE1EA95B5900F0866E /* shader_014_frag.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEF6D01EA95B5800F0866E /* shader_014_frag.fsh */; };
 		BBAEF8BF1EA95B5900F0866E /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF6D21EA95B5800F0866E /* EndBossSnakeTextureGpuProgramWrapper.cpp */; };
 		BBAEF8C01EA95B5900F0866E /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF6D21EA95B5800F0866E /* EndBossSnakeTextureGpuProgramWrapper.cpp */; };
 		BBAEF8C11EA95B5900F0866E /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF6D41EA95B5800F0866E /* FramebufferRadialBlurGpuProgramWrapper.cpp */; };
@@ -860,6 +860,44 @@
 		BB85AEAA1EBA2FB600CC6BCA /* texture_023.ngt */ = {isa = PBXFileReference; lastKnownFileType = file; path = texture_023.ngt; sourceTree = "<group>"; };
 		BB85AEAB1EBA2FB600CC6BCA /* texture_024.ngt */ = {isa = PBXFileReference; lastKnownFileType = file; path = texture_024.ngt; sourceTree = "<group>"; };
 		BB85AEAC1EBA2FB600CC6BCA /* texture_025.ngt */ = {isa = PBXFileReference; lastKnownFileType = file; path = texture_025.ngt; sourceTree = "<group>"; };
+		BB85AEDF1EBA3A1300CC6BCA /* shader_001_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_001_frag.ngs; sourceTree = "<group>"; };
+		BB85AEE01EBA3A1300CC6BCA /* shader_001_vert.ngs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader_001_vert.ngs; sourceTree = "<group>"; };
+		BB85AEE11EBA3A1300CC6BCA /* shader_002_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_002_frag.ngs; sourceTree = "<group>"; };
+		BB85AEE21EBA3A1300CC6BCA /* shader_002_vert.ngs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader_002_vert.ngs; sourceTree = "<group>"; };
+		BB85AEE31EBA3A1300CC6BCA /* shader_003_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_003_frag.ngs; sourceTree = "<group>"; };
+		BB85AEE41EBA3A1300CC6BCA /* shader_003_vert.ngs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader_003_vert.ngs; sourceTree = "<group>"; };
+		BB85AEF11EBA3A3100CC6BCA /* shader_001_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_001_frag.fsh; sourceTree = "<group>"; };
+		BB85AEF21EBA3A3100CC6BCA /* shader_002_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_002_frag.fsh; sourceTree = "<group>"; };
+		BB85AEF31EBA3A3100CC6BCA /* shader_003_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_003_frag.fsh; sourceTree = "<group>"; };
+		BB85AEF41EBA3A3100CC6BCA /* shader_001_vert.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_001_vert.vsh; sourceTree = "<group>"; };
+		BB85AEF51EBA3A3100CC6BCA /* shader_002_vert.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_002_vert.vsh; sourceTree = "<group>"; };
+		BB85AEF61EBA3A3100CC6BCA /* shader_003_vert.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_003_vert.vsh; sourceTree = "<group>"; };
+		BB85AEF71EBA3A4800CC6BCA /* shader_004_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_004_frag.ngs; sourceTree = "<group>"; };
+		BB85AEF81EBA3A4800CC6BCA /* shader_005_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_005_frag.ngs; sourceTree = "<group>"; };
+		BB85AEF91EBA3A4800CC6BCA /* shader_006_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_006_frag.ngs; sourceTree = "<group>"; };
+		BB85AEFA1EBA3A4800CC6BCA /* shader_007_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_007_frag.ngs; sourceTree = "<group>"; };
+		BB85AEFB1EBA3A4800CC6BCA /* shader_008_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_008_frag.ngs; sourceTree = "<group>"; };
+		BB85AEFC1EBA3A4800CC6BCA /* shader_008_vert.ngs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader_008_vert.ngs; sourceTree = "<group>"; };
+		BB85AEFD1EBA3A4800CC6BCA /* shader_009_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_009_frag.ngs; sourceTree = "<group>"; };
+		BB85AEFE1EBA3A4800CC6BCA /* shader_010_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_010_frag.ngs; sourceTree = "<group>"; };
+		BB85AEFF1EBA3A4800CC6BCA /* shader_010_vert.ngs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader_010_vert.ngs; sourceTree = "<group>"; };
+		BB85AF001EBA3A4800CC6BCA /* shader_011_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_011_frag.ngs; sourceTree = "<group>"; };
+		BB85AF011EBA3A4800CC6BCA /* shader_012_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_012_frag.ngs; sourceTree = "<group>"; };
+		BB85AF021EBA3A4800CC6BCA /* shader_013_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_013_frag.ngs; sourceTree = "<group>"; };
+		BB85AF031EBA3A4800CC6BCA /* shader_014_frag.ngs */ = {isa = PBXFileReference; lastKnownFileType = file; path = shader_014_frag.ngs; sourceTree = "<group>"; };
+		BB85AF1E1EBA3A5300CC6BCA /* shader_004_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_004_frag.fsh; sourceTree = "<group>"; };
+		BB85AF1F1EBA3A5300CC6BCA /* shader_005_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_005_frag.fsh; sourceTree = "<group>"; };
+		BB85AF201EBA3A5300CC6BCA /* shader_006_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_006_frag.fsh; sourceTree = "<group>"; };
+		BB85AF211EBA3A5300CC6BCA /* shader_007_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_007_frag.fsh; sourceTree = "<group>"; };
+		BB85AF221EBA3A5300CC6BCA /* shader_008_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_008_frag.fsh; sourceTree = "<group>"; };
+		BB85AF231EBA3A5300CC6BCA /* shader_009_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_009_frag.fsh; sourceTree = "<group>"; };
+		BB85AF241EBA3A5300CC6BCA /* shader_010_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_010_frag.fsh; sourceTree = "<group>"; };
+		BB85AF251EBA3A5300CC6BCA /* shader_011_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_011_frag.fsh; sourceTree = "<group>"; };
+		BB85AF261EBA3A5300CC6BCA /* shader_012_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_012_frag.fsh; sourceTree = "<group>"; };
+		BB85AF271EBA3A5300CC6BCA /* shader_013_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_013_frag.fsh; sourceTree = "<group>"; };
+		BB85AF281EBA3A5300CC6BCA /* shader_014_frag.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_014_frag.fsh; sourceTree = "<group>"; };
+		BB85AF291EBA3A5300CC6BCA /* shader_008_vert.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_008_vert.vsh; sourceTree = "<group>"; };
+		BB85AF2A1EBA3A5300CC6BCA /* shader_010_vert.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader_010_vert.vsh; sourceTree = "<group>"; };
 		BBA3443A1EAC0D4E00A825EE /* client.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = client.cpp; sourceTree = "<group>"; };
 		BBA3443B1EAC0D4E00A825EE /* client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = client.h; sourceTree = "<group>"; };
 		BBAEF55E1EA95B5800F0866E /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
@@ -910,12 +948,6 @@
 		BBAEF5C11EA95B5800F0866E /* OpenGLTextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureLoader.h; sourceTree = "<group>"; };
 		BBAEF5C21EA95B5800F0866E /* OpenGLTextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTextureProgram.cpp; sourceTree = "<group>"; };
 		BBAEF5C31EA95B5800F0866E /* OpenGLTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureProgram.h; sourceTree = "<group>"; };
-		BBAEF5C61EA95B5800F0866E /* shader_001_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_001_frag.fsh; sourceTree = "<group>"; };
-		BBAEF5C71EA95B5800F0866E /* shader_001_vert.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_001_vert.vsh; sourceTree = "<group>"; };
-		BBAEF5C81EA95B5800F0866E /* shader_002_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_002_frag.fsh; sourceTree = "<group>"; };
-		BBAEF5C91EA95B5800F0866E /* shader_002_vert.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_002_vert.vsh; sourceTree = "<group>"; };
-		BBAEF5CA1EA95B5800F0866E /* shader_003_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_003_frag.fsh; sourceTree = "<group>"; };
-		BBAEF5CB1EA95B5800F0866E /* shader_003_vert.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_003_vert.vsh; sourceTree = "<group>"; };
 		BBAEF5CD1EA95B5800F0866E /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
 		BBAEF5CE1EA95B5800F0866E /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
 		BBAEF5CF1EA95B5800F0866E /* CircleBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircleBatcher.cpp; sourceTree = "<group>"; };
@@ -1051,19 +1083,6 @@
 		BBAEF6C01EA95B5800F0866E /* OpenGLTransitionProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTransitionProgram.h; sourceTree = "<group>"; };
 		BBAEF6C11EA95B5800F0866E /* OpenGLTransScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTransScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BBAEF6C21EA95B5800F0866E /* OpenGLTransScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTransScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
-		BBAEF6C41EA95B5800F0866E /* shader_004_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_004_frag.fsh; sourceTree = "<group>"; };
-		BBAEF6C51EA95B5800F0866E /* shader_005_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_005_frag.fsh; sourceTree = "<group>"; };
-		BBAEF6C61EA95B5800F0866E /* shader_007_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_007_frag.fsh; sourceTree = "<group>"; };
-		BBAEF6C71EA95B5800F0866E /* shader_006_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_006_frag.fsh; sourceTree = "<group>"; };
-		BBAEF6C81EA95B5800F0866E /* shader_009_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_009_frag.fsh; sourceTree = "<group>"; };
-		BBAEF6C91EA95B5800F0866E /* shader_010_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_010_frag.fsh; sourceTree = "<group>"; };
-		BBAEF6CA1EA95B5800F0866E /* shader_010_vert.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_010_vert.vsh; sourceTree = "<group>"; };
-		BBAEF6CB1EA95B5800F0866E /* shader_011_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_011_frag.fsh; sourceTree = "<group>"; };
-		BBAEF6CC1EA95B5800F0866E /* shader_012_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_012_frag.fsh; sourceTree = "<group>"; };
-		BBAEF6CD1EA95B5800F0866E /* shader_013_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_013_frag.fsh; sourceTree = "<group>"; };
-		BBAEF6CE1EA95B5800F0866E /* shader_008_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_008_frag.fsh; sourceTree = "<group>"; };
-		BBAEF6CF1EA95B5800F0866E /* shader_008_vert.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_008_vert.vsh; sourceTree = "<group>"; };
-		BBAEF6D01EA95B5800F0866E /* shader_014_frag.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader_014_frag.fsh; sourceTree = "<group>"; };
 		BBAEF6D21EA95B5800F0866E /* EndBossSnakeTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EndBossSnakeTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BBAEF6D31EA95B5800F0866E /* EndBossSnakeTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndBossSnakeTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BBAEF6D41EA95B5800F0866E /* FramebufferRadialBlurGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FramebufferRadialBlurGpuProgramWrapper.cpp; sourceTree = "<group>"; };
@@ -1983,12 +2002,18 @@
 		BBAEF5C51EA95B5800F0866E /* shader */ = {
 			isa = PBXGroup;
 			children = (
-				BBAEF5C61EA95B5800F0866E /* shader_001_frag.fsh */,
-				BBAEF5C71EA95B5800F0866E /* shader_001_vert.vsh */,
-				BBAEF5C81EA95B5800F0866E /* shader_002_frag.fsh */,
-				BBAEF5C91EA95B5800F0866E /* shader_002_vert.vsh */,
-				BBAEF5CA1EA95B5800F0866E /* shader_003_frag.fsh */,
-				BBAEF5CB1EA95B5800F0866E /* shader_003_vert.vsh */,
+				BB85AEF11EBA3A3100CC6BCA /* shader_001_frag.fsh */,
+				BB85AEDF1EBA3A1300CC6BCA /* shader_001_frag.ngs */,
+				BB85AEE01EBA3A1300CC6BCA /* shader_001_vert.ngs */,
+				BB85AEF41EBA3A3100CC6BCA /* shader_001_vert.vsh */,
+				BB85AEF21EBA3A3100CC6BCA /* shader_002_frag.fsh */,
+				BB85AEE11EBA3A1300CC6BCA /* shader_002_frag.ngs */,
+				BB85AEE21EBA3A1300CC6BCA /* shader_002_vert.ngs */,
+				BB85AEF51EBA3A3100CC6BCA /* shader_002_vert.vsh */,
+				BB85AEF31EBA3A3100CC6BCA /* shader_003_frag.fsh */,
+				BB85AEE31EBA3A1300CC6BCA /* shader_003_frag.ngs */,
+				BB85AEE41EBA3A1300CC6BCA /* shader_003_vert.ngs */,
+				BB85AEF61EBA3A3100CC6BCA /* shader_003_vert.vsh */,
 			);
 			path = shader;
 			sourceTree = "<group>";
@@ -2254,19 +2279,32 @@
 		BBAEF6C31EA95B5800F0866E /* shader */ = {
 			isa = PBXGroup;
 			children = (
-				BBAEF6C41EA95B5800F0866E /* shader_004_frag.fsh */,
-				BBAEF6C51EA95B5800F0866E /* shader_005_frag.fsh */,
-				BBAEF6C71EA95B5800F0866E /* shader_006_frag.fsh */,
-				BBAEF6C61EA95B5800F0866E /* shader_007_frag.fsh */,
-				BBAEF6CE1EA95B5800F0866E /* shader_008_frag.fsh */,
-				BBAEF6CF1EA95B5800F0866E /* shader_008_vert.vsh */,
-				BBAEF6C81EA95B5800F0866E /* shader_009_frag.fsh */,
-				BBAEF6C91EA95B5800F0866E /* shader_010_frag.fsh */,
-				BBAEF6CA1EA95B5800F0866E /* shader_010_vert.vsh */,
-				BBAEF6CB1EA95B5800F0866E /* shader_011_frag.fsh */,
-				BBAEF6CC1EA95B5800F0866E /* shader_012_frag.fsh */,
-				BBAEF6CD1EA95B5800F0866E /* shader_013_frag.fsh */,
-				BBAEF6D01EA95B5800F0866E /* shader_014_frag.fsh */,
+				BB85AF1E1EBA3A5300CC6BCA /* shader_004_frag.fsh */,
+				BB85AEF71EBA3A4800CC6BCA /* shader_004_frag.ngs */,
+				BB85AF1F1EBA3A5300CC6BCA /* shader_005_frag.fsh */,
+				BB85AEF81EBA3A4800CC6BCA /* shader_005_frag.ngs */,
+				BB85AF201EBA3A5300CC6BCA /* shader_006_frag.fsh */,
+				BB85AEF91EBA3A4800CC6BCA /* shader_006_frag.ngs */,
+				BB85AF211EBA3A5300CC6BCA /* shader_007_frag.fsh */,
+				BB85AEFA1EBA3A4800CC6BCA /* shader_007_frag.ngs */,
+				BB85AF221EBA3A5300CC6BCA /* shader_008_frag.fsh */,
+				BB85AEFB1EBA3A4800CC6BCA /* shader_008_frag.ngs */,
+				BB85AEFC1EBA3A4800CC6BCA /* shader_008_vert.ngs */,
+				BB85AF291EBA3A5300CC6BCA /* shader_008_vert.vsh */,
+				BB85AF231EBA3A5300CC6BCA /* shader_009_frag.fsh */,
+				BB85AEFD1EBA3A4800CC6BCA /* shader_009_frag.ngs */,
+				BB85AF241EBA3A5300CC6BCA /* shader_010_frag.fsh */,
+				BB85AEFE1EBA3A4800CC6BCA /* shader_010_frag.ngs */,
+				BB85AEFF1EBA3A4800CC6BCA /* shader_010_vert.ngs */,
+				BB85AF2A1EBA3A5300CC6BCA /* shader_010_vert.vsh */,
+				BB85AF251EBA3A5300CC6BCA /* shader_011_frag.fsh */,
+				BB85AF001EBA3A4800CC6BCA /* shader_011_frag.ngs */,
+				BB85AF261EBA3A5300CC6BCA /* shader_012_frag.fsh */,
+				BB85AF011EBA3A4800CC6BCA /* shader_012_frag.ngs */,
+				BB85AF271EBA3A5300CC6BCA /* shader_013_frag.fsh */,
+				BB85AF021EBA3A4800CC6BCA /* shader_013_frag.ngs */,
+				BB85AF281EBA3A5300CC6BCA /* shader_014_frag.fsh */,
+				BB85AF031EBA3A4800CC6BCA /* shader_014_frag.ngs */,
 			);
 			path = shader;
 			sourceTree = "<group>";
@@ -2874,13 +2912,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBAEF8A51EA95B5900F0866E /* shader_004_frag.fsh in Resources */,
 				BB85AEDD1EBA2FB600CC6BCA /* texture_025.ngt in Resources */,
 				BB85AED11EBA2FB600CC6BCA /* texture_019.ngt in Resources */,
 				BB85AEC31EBA2FB600CC6BCA /* texture_012.ngt in Resources */,
+				BB85AF0C1EBA3A4800CC6BCA /* shader_008_frag.ngs in Resources */,
+				BB85AF101EBA3A4800CC6BCA /* shader_009_frag.ngs in Resources */,
 				BBFBFEDB1EB94FFB008B3C01 /* sound_052.wav in Resources */,
 				BBFBFEC11EB94FFB008B3C01 /* sound_039.wav in Resources */,
-				BBAEF8B51EA95B5900F0866E /* shader_012_frag.fsh in Resources */,
+				BB85AEE51EBA3A1300CC6BCA /* shader_001_frag.ngs in Resources */,
 				BB85AE7E1EBA2F9D00CC6BCA /* texture_028.ngt in Resources */,
 				BBFBFE7D1EB94FFB008B3C01 /* sound_005.wav in Resources */,
 				BBFBFEE51EB94FFB008B3C01 /* sound_057.wav in Resources */,
@@ -2893,10 +2932,11 @@
 				BBFBFEA11EB94FFB008B3C01 /* sound_023.wav in Resources */,
 				BB85AECF1EBA2FB600CC6BCA /* texture_018.ngt in Resources */,
 				BBFBFEA31EB94FFB008B3C01 /* sound_024.wav in Resources */,
-				BBAEF8B11EA95B5900F0866E /* shader_010_vert.vsh in Resources */,
 				BBFBFEBB1EB94FFB008B3C01 /* sound_036.wav in Resources */,
 				BB85AEB31EBA2FB600CC6BCA /* texture_004.ngt in Resources */,
 				BBFBFEAF1EB94FFB008B3C01 /* sound_030.wav in Resources */,
+				BB85AEE91EBA3A1300CC6BCA /* shader_002_frag.ngs in Resources */,
+				BB85AF0E1EBA3A4800CC6BCA /* shader_008_vert.ngs in Resources */,
 				BBFBFE9F1EB94FFB008B3C01 /* sound_022.wav in Resources */,
 				BBFBFEA91EB94FFB008B3C01 /* sound_027.wav in Resources */,
 				BBFBFEA51EB94FFB008B3C01 /* sound_025.wav in Resources */,
@@ -2904,12 +2944,15 @@
 				BBFBFEDD1EB94FFB008B3C01 /* sound_053.wav in Resources */,
 				BB85AE821EBA2F9D00CC6BCA /* texture_032.ngt in Resources */,
 				BBFBFE751EB94FFB008B3C01 /* sound_001.wav in Resources */,
+				BB85AF161EBA3A4800CC6BCA /* shader_011_frag.ngs in Resources */,
 				BBFBFE6F1EB94FFB008B3C01 /* music_004.wav in Resources */,
 				BBFBFE8B1EB94FFB008B3C01 /* sound_012.wav in Resources */,
 				BBFBFEDF1EB94FFB008B3C01 /* sound_054.wav in Resources */,
+				BB85AEEB1EBA3A1300CC6BCA /* shader_002_vert.ngs in Resources */,
+				BB85AF141EBA3A4800CC6BCA /* shader_010_vert.ngs in Resources */,
 				BBFBFEAD1EB94FFB008B3C01 /* sound_029.wav in Resources */,
-				BBAEF8BD1EA95B5900F0866E /* shader_014_frag.fsh in Resources */,
 				BB85AE8A1EBA2F9D00CC6BCA /* texture_040.ngt in Resources */,
+				BB85AF061EBA3A4800CC6BCA /* shader_005_frag.ngs in Resources */,
 				BB85AE861EBA2F9D00CC6BCA /* texture_036.ngt in Resources */,
 				BB85AED31EBA2FB600CC6BCA /* texture_020.ngt in Resources */,
 				BB7639531E21B65000534DAB /* GoogleService-Info.plist in Resources */,
@@ -2917,21 +2960,18 @@
 				BB85AEAD1EBA2FB600CC6BCA /* texture_001.ngt in Resources */,
 				BB85AECB1EBA2FB600CC6BCA /* texture_016.ngt in Resources */,
 				BBFBFECD1EB94FFB008B3C01 /* sound_045.wav in Resources */,
-				BBAEF8AD1EA95B5900F0866E /* shader_009_frag.fsh in Resources */,
 				BB85AEB71EBA2FB600CC6BCA /* texture_006.ngt in Resources */,
 				BBFBFEF51EB94FFB008B3C01 /* sound_065.wav in Resources */,
 				BB85AEB11EBA2FB600CC6BCA /* texture_003.ngt in Resources */,
 				BBFBFE951EB94FFB008B3C01 /* sound_017.wav in Resources */,
-				BBAEF8A91EA95B5900F0866E /* shader_007_frag.fsh in Resources */,
 				BB85AEB51EBA2FB600CC6BCA /* texture_005.ngt in Resources */,
 				BB44C3481DB0323F003E633F /* Images.xcassets in Resources */,
 				BBFBFEF31EB94FFB008B3C01 /* sound_064.wav in Resources */,
-				BBAEF7C11EA95B5900F0866E /* shader_002_frag.fsh in Resources */,
 				BBFBFEB71EB94FFB008B3C01 /* sound_034.wav in Resources */,
+				BB85AF0A1EBA3A4800CC6BCA /* shader_007_frag.ngs in Resources */,
 				BB85AE851EBA2F9D00CC6BCA /* texture_035.ngt in Resources */,
 				BBFBFEB31EB94FFB008B3C01 /* sound_032.wav in Resources */,
 				BBFBFEED1EB94FFB008B3C01 /* sound_061.wav in Resources */,
-				BBAEF7BF1EA95B5900F0866E /* shader_001_vert.vsh in Resources */,
 				BB85AE841EBA2F9D00CC6BCA /* texture_034.ngt in Resources */,
 				BB85AED71EBA2FB600CC6BCA /* texture_022.ngt in Resources */,
 				BBFBFE691EB94FFB008B3C01 /* music_001.wav in Resources */,
@@ -2941,6 +2981,7 @@
 				BBFBFECF1EB94FFB008B3C01 /* sound_046.wav in Resources */,
 				BBFBFEEB1EB94FFB008B3C01 /* sound_060.wav in Resources */,
 				BBFBFEF11EB94FFB008B3C01 /* sound_063.wav in Resources */,
+				BB85AF081EBA3A4800CC6BCA /* shader_006_frag.ngs in Resources */,
 				BBFBFE8F1EB94FFB008B3C01 /* sound_014.wav in Resources */,
 				BBFBFED71EB94FFB008B3C01 /* sound_050.wav in Resources */,
 				BB85AEC91EBA2FB600CC6BCA /* texture_015.ngt in Resources */,
@@ -2960,19 +3001,21 @@
 				BBFBFE771EB94FFB008B3C01 /* sound_002.wav in Resources */,
 				BBFBFEF71EB94FFB008B3C01 /* sound_066.wav in Resources */,
 				BBFBFE731EB94FFB008B3C01 /* music_006.wav in Resources */,
+				BB85AF1C1EBA3A4800CC6BCA /* shader_014_frag.ngs in Resources */,
 				BB85AE7C1EBA2F9D00CC6BCA /* texture_026.ngt in Resources */,
 				BBFBFEB91EB94FFB008B3C01 /* sound_035.wav in Resources */,
 				BB85AEBD1EBA2FB600CC6BCA /* texture_009.ngt in Resources */,
+				BB85AEE71EBA3A1300CC6BCA /* shader_001_vert.ngs in Resources */,
+				BB85AEED1EBA3A1300CC6BCA /* shader_003_frag.ngs in Resources */,
 				BBFBFE911EB94FFB008B3C01 /* sound_015.wav in Resources */,
 				BBFBFEE11EB94FFB008B3C01 /* sound_055.wav in Resources */,
+				BB85AF181EBA3A4800CC6BCA /* shader_012_frag.ngs in Resources */,
 				BBFBFEBF1EB94FFB008B3C01 /* sound_038.wav in Resources */,
-				BBAEF7BD1EA95B5800F0866E /* shader_001_frag.fsh in Resources */,
-				BBAEF8AF1EA95B5900F0866E /* shader_010_frag.fsh in Resources */,
-				BBAEF7C31EA95B5900F0866E /* shader_002_vert.vsh in Resources */,
+				BB85AF1A1EBA3A4800CC6BCA /* shader_013_frag.ngs in Resources */,
 				BBFBFECB1EB94FFB008B3C01 /* sound_044.wav in Resources */,
+				BB85AF041EBA3A4800CC6BCA /* shader_004_frag.ngs in Resources */,
+				BB85AEEF1EBA3A1300CC6BCA /* shader_003_vert.ngs in Resources */,
 				BBFBFE9D1EB94FFB008B3C01 /* sound_021.wav in Resources */,
-				BBAEF7C71EA95B5900F0866E /* shader_003_vert.vsh in Resources */,
-				BBAEF8B71EA95B5900F0866E /* shader_013_frag.fsh in Resources */,
 				BBFBFE7B1EB94FFB008B3C01 /* sound_004.wav in Resources */,
 				BBFBFEC51EB94FFB008B3C01 /* sound_041.wav in Resources */,
 				BB85AEDB1EBA2FB600CC6BCA /* texture_024.ngt in Resources */,
@@ -2981,10 +3024,9 @@
 				BB85AEC51EBA2FB600CC6BCA /* texture_013.ngt in Resources */,
 				BB85AECD1EBA2FB600CC6BCA /* texture_017.ngt in Resources */,
 				BB85AE891EBA2F9D00CC6BCA /* texture_039.ngt in Resources */,
-				BBAEF8B91EA95B5900F0866E /* shader_008_frag.fsh in Resources */,
-				BBAEF8B31EA95B5900F0866E /* shader_011_frag.fsh in Resources */,
 				BB85AE811EBA2F9D00CC6BCA /* texture_031.ngt in Resources */,
 				BBFBFEB11EB94FFB008B3C01 /* sound_031.wav in Resources */,
+				BB85AF121EBA3A4800CC6BCA /* shader_010_frag.ngs in Resources */,
 				BBFBFE7F1EB94FFB008B3C01 /* sound_006.wav in Resources */,
 				BB85AE871EBA2F9D00CC6BCA /* texture_037.ngt in Resources */,
 				BB85AE7D1EBA2F9D00CC6BCA /* texture_027.ngt in Resources */,
@@ -2993,20 +3035,16 @@
 				BBFBFEC31EB94FFB008B3C01 /* sound_040.wav in Resources */,
 				BB85AEBF1EBA2FB600CC6BCA /* texture_010.ngt in Resources */,
 				BBFBFED11EB94FFB008B3C01 /* sound_047.wav in Resources */,
-				BBAEF7C51EA95B5900F0866E /* shader_003_frag.fsh in Resources */,
 				BBFBFEE31EB94FFB008B3C01 /* sound_056.wav in Resources */,
-				BBAEF8A71EA95B5900F0866E /* shader_005_frag.fsh in Resources */,
 				BBFBFE971EB94FFB008B3C01 /* sound_018.wav in Resources */,
 				BBFBFEE91EB94FFB008B3C01 /* sound_059.wav in Resources */,
 				BBFBFEB51EB94FFB008B3C01 /* sound_033.wav in Resources */,
 				BBFBFE8D1EB94FFB008B3C01 /* sound_013.wav in Resources */,
 				BB85AE801EBA2F9D00CC6BCA /* texture_030.ngt in Resources */,
 				BBFBFE991EB94FFB008B3C01 /* sound_019.wav in Resources */,
-				BBAEF8AB1EA95B5900F0866E /* shader_006_frag.fsh in Resources */,
 				BBFBFEC71EB94FFB008B3C01 /* sound_042.wav in Resources */,
 				BBFBFE6B1EB94FFB008B3C01 /* music_002.wav in Resources */,
 				BBFBFE851EB94FFB008B3C01 /* sound_009.wav in Resources */,
-				BBAEF8BB1EA95B5900F0866E /* shader_008_vert.vsh in Resources */,
 				BB85AE7F1EBA2F9D00CC6BCA /* texture_029.ngt in Resources */,
 				BB85AEC71EBA2FB600CC6BCA /* texture_014.ngt in Resources */,
 			);
@@ -3016,37 +3054,38 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB85AF0D1EBA3A4800CC6BCA /* shader_008_frag.ngs in Resources */,
 				BBFBFE6A1EB94FFB008B3C01 /* music_001.wav in Resources */,
 				BB85AEBE1EBA2FB600CC6BCA /* texture_009.ngt in Resources */,
 				BBFBFE841EB94FFB008B3C01 /* sound_008.wav in Resources */,
 				BB44C3291DB030B3003E633F /* Assets.xcassets in Resources */,
-				BBAEF8BE1EA95B5900F0866E /* shader_014_frag.fsh in Resources */,
 				BBFBFEC61EB94FFB008B3C01 /* sound_041.wav in Resources */,
 				BBFBFE801EB94FFB008B3C01 /* sound_006.wav in Resources */,
-				BBAEF8B01EA95B5900F0866E /* shader_010_frag.fsh in Resources */,
 				BBFBFEF81EB94FFB008B3C01 /* sound_066.wav in Resources */,
+				BB85AF051EBA3A4800CC6BCA /* shader_004_frag.ngs in Resources */,
 				BBFBFEE61EB94FFB008B3C01 /* sound_057.wav in Resources */,
-				BBAEF7C21EA95B5900F0866E /* shader_002_frag.fsh in Resources */,
 				BBFBFE961EB94FFB008B3C01 /* sound_017.wav in Resources */,
+				BB85AF131EBA3A4800CC6BCA /* shader_010_frag.ngs in Resources */,
 				BBFBFEB01EB94FFB008B3C01 /* sound_030.wav in Resources */,
 				BBFBFEF41EB94FFB008B3C01 /* sound_064.wav in Resources */,
 				BB85AEC61EBA2FB600CC6BCA /* texture_013.ngt in Resources */,
 				BBFBFE7C1EB94FFB008B3C01 /* sound_004.wav in Resources */,
 				BBFBFEBA1EB94FFB008B3C01 /* sound_035.wav in Resources */,
 				BBFBFE821EB94FFB008B3C01 /* sound_007.wav in Resources */,
-				BBAEF8AE1EA95B5900F0866E /* shader_009_frag.fsh in Resources */,
 				BBFBFEC41EB94FFB008B3C01 /* sound_040.wav in Resources */,
 				BBFBFEDA1EB94FFB008B3C01 /* sound_051.wav in Resources */,
 				BBFBFE881EB94FFB008B3C01 /* sound_010.wav in Resources */,
 				BB85AECA1EBA2FB600CC6BCA /* texture_015.ngt in Resources */,
+				BB85AEE81EBA3A1300CC6BCA /* shader_001_vert.ngs in Resources */,
 				BBFBFEAA1EB94FFB008B3C01 /* sound_027.wav in Resources */,
 				BB85AED41EBA2FB600CC6BCA /* texture_020.ngt in Resources */,
-				BBAEF7C61EA95B5900F0866E /* shader_003_frag.fsh in Resources */,
+				BB85AF071EBA3A4800CC6BCA /* shader_005_frag.ngs in Resources */,
 				BB85AED01EBA2FB600CC6BCA /* texture_018.ngt in Resources */,
 				BBFBFE8C1EB94FFB008B3C01 /* sound_012.wav in Resources */,
 				BBFBFED01EB94FFB008B3C01 /* sound_046.wav in Resources */,
 				BB85AE8F1EBA2FA300CC6BCA /* texture_042.ngt in Resources */,
 				BBFBFEEE1EB94FFB008B3C01 /* sound_061.wav in Resources */,
+				BB85AEE61EBA3A1300CC6BCA /* shader_001_frag.ngs in Resources */,
 				BBFBFE781EB94FFB008B3C01 /* sound_002.wav in Resources */,
 				BBFBFEF61EB94FFB008B3C01 /* sound_065.wav in Resources */,
 				BBFBFEDE1EB94FFB008B3C01 /* sound_053.wav in Resources */,
@@ -3054,19 +3093,20 @@
 				BB85AED21EBA2FB600CC6BCA /* texture_019.ngt in Resources */,
 				BBFBFEB81EB94FFB008B3C01 /* sound_034.wav in Resources */,
 				BB85AED61EBA2FB600CC6BCA /* texture_021.ngt in Resources */,
+				BB85AF0B1EBA3A4800CC6BCA /* shader_007_frag.ngs in Resources */,
 				BBFBFEF21EB94FFB008B3C01 /* sound_063.wav in Resources */,
 				BBFBFECA1EB94FFB008B3C01 /* sound_043.wav in Resources */,
 				BBFBFECE1EB94FFB008B3C01 /* sound_045.wav in Resources */,
 				BBFBFEE81EB94FFB008B3C01 /* sound_058.wav in Resources */,
-				BBAEF8A81EA95B5900F0866E /* shader_005_frag.fsh in Resources */,
-				BBAEF7C01EA95B5900F0866E /* shader_001_vert.vsh in Resources */,
+				BB85AEF01EBA3A1300CC6BCA /* shader_003_vert.ngs in Resources */,
 				BBFBFEEC1EB94FFB008B3C01 /* sound_060.wav in Resources */,
 				BBFBFECC1EB94FFB008B3C01 /* sound_044.wav in Resources */,
 				BBFBFEE01EB94FFB008B3C01 /* sound_054.wav in Resources */,
 				BB85AEDE1EBA2FB600CC6BCA /* texture_025.ngt in Resources */,
 				BB85AEB81EBA2FB600CC6BCA /* texture_006.ngt in Resources */,
-				BBAEF8B21EA95B5900F0866E /* shader_010_vert.vsh in Resources */,
+				BB85AEEE1EBA3A1300CC6BCA /* shader_003_frag.ngs in Resources */,
 				BB85AEBA1EBA2FB600CC6BCA /* texture_007.ngt in Resources */,
+				BB85AEEC1EBA3A1300CC6BCA /* shader_002_vert.ngs in Resources */,
 				BBFBFE861EB94FFB008B3C01 /* sound_009.wav in Resources */,
 				BBFBFEF01EB94FFB008B3C01 /* sound_062.wav in Resources */,
 				BB85AEDC1EBA2FB600CC6BCA /* texture_024.ngt in Resources */,
@@ -3074,44 +3114,40 @@
 				BBFBFE9C1EB94FFB008B3C01 /* sound_020.wav in Resources */,
 				BBFBFE7A1EB94FFB008B3C01 /* sound_003.wav in Resources */,
 				BB85AE931EBA2FA900CC6BCA /* texture_044.ngt in Resources */,
+				BB85AF091EBA3A4800CC6BCA /* shader_006_frag.ngs in Resources */,
 				BBFBFE9A1EB94FFB008B3C01 /* sound_019.wav in Resources */,
 				BBFBFE761EB94FFB008B3C01 /* sound_001.wav in Resources */,
-				BBAEF8BA1EA95B5900F0866E /* shader_008_frag.fsh in Resources */,
 				BBFBFEB61EB94FFB008B3C01 /* sound_033.wav in Resources */,
 				BBFBFEE41EB94FFB008B3C01 /* sound_056.wav in Resources */,
+				BB85AF111EBA3A4800CC6BCA /* shader_009_frag.ngs in Resources */,
 				BBFBFE8E1EB94FFB008B3C01 /* sound_013.wav in Resources */,
 				BBFBFEA21EB94FFB008B3C01 /* sound_023.wav in Resources */,
 				BBFBFE901EB94FFB008B3C01 /* sound_014.wav in Resources */,
 				BBFBFE701EB94FFB008B3C01 /* music_004.wav in Resources */,
 				BBFBFEA01EB94FFB008B3C01 /* sound_022.wav in Resources */,
-				BBAEF7BE1EA95B5800F0866E /* shader_001_frag.fsh in Resources */,
 				BBFBFEA81EB94FFB008B3C01 /* sound_026.wav in Resources */,
 				BB44C32A1DB030B3003E633F /* Main.storyboard in Resources */,
-				BBAEF8A61EA95B5900F0866E /* shader_004_frag.fsh in Resources */,
 				BBFBFEC21EB94FFB008B3C01 /* sound_039.wav in Resources */,
+				BB85AF1B1EBA3A4800CC6BCA /* shader_013_frag.ngs in Resources */,
+				BB85AF171EBA3A4800CC6BCA /* shader_011_frag.ngs in Resources */,
 				BBFBFE981EB94FFB008B3C01 /* sound_018.wav in Resources */,
 				BBFBFE7E1EB94FFB008B3C01 /* sound_005.wav in Resources */,
 				BB85AEB01EBA2FB600CC6BCA /* texture_002.ngt in Resources */,
+				BB85AF1D1EBA3A4800CC6BCA /* shader_014_frag.ngs in Resources */,
 				BB85AEC81EBA2FB600CC6BCA /* texture_014.ngt in Resources */,
 				BBFBFEEA1EB94FFB008B3C01 /* sound_059.wav in Resources */,
+				BB85AF0F1EBA3A4800CC6BCA /* shader_008_vert.ngs in Resources */,
 				BBFBFEBC1EB94FFB008B3C01 /* sound_036.wav in Resources */,
 				BBFBFE8A1EB94FFB008B3C01 /* sound_011.wav in Resources */,
-				BBAEF8AA1EA95B5900F0866E /* shader_007_frag.fsh in Resources */,
 				BBFBFED21EB94FFB008B3C01 /* sound_047.wav in Resources */,
+				BB85AEEA1EBA3A1300CC6BCA /* shader_002_frag.ngs in Resources */,
 				BB85AEC41EBA2FB600CC6BCA /* texture_012.ngt in Resources */,
-				BBAEF7C41EA95B5900F0866E /* shader_002_vert.vsh in Resources */,
 				BBFBFE6E1EB94FFB008B3C01 /* music_003.wav in Resources */,
 				BBFBFE941EB94FFB008B3C01 /* sound_016.wav in Resources */,
-				BBAEF8B61EA95B5900F0866E /* shader_012_frag.fsh in Resources */,
-				BBAEF8BC1EA95B5900F0866E /* shader_008_vert.vsh in Resources */,
 				BB85AEB61EBA2FB600CC6BCA /* texture_005.ngt in Resources */,
-				BBAEF7C81EA95B5900F0866E /* shader_003_vert.vsh in Resources */,
 				BBFBFE6C1EB94FFB008B3C01 /* music_002.wav in Resources */,
 				BBFBFED61EB94FFB008B3C01 /* sound_049.wav in Resources */,
 				BB85AED81EBA2FB600CC6BCA /* texture_022.ngt in Resources */,
-				BBAEF8AC1EA95B5900F0866E /* shader_006_frag.fsh in Resources */,
-				BBAEF8B81EA95B5900F0866E /* shader_013_frag.fsh in Resources */,
-				BBAEF8B41EA95B5900F0866E /* shader_011_frag.fsh in Resources */,
 				BBFBFEB21EB94FFB008B3C01 /* sound_031.wav in Resources */,
 				BB85AEAE1EBA2FB600CC6BCA /* texture_001.ngt in Resources */,
 				BBFBFE9E1EB94FFB008B3C01 /* sound_021.wav in Resources */,
@@ -3123,6 +3159,7 @@
 				BBFBFEE21EB94FFB008B3C01 /* sound_055.wav in Resources */,
 				BBFBFEAC1EB94FFB008B3C01 /* sound_028.wav in Resources */,
 				BBFBFED41EB94FFB008B3C01 /* sound_048.wav in Resources */,
+				BB85AF191EBA3A4800CC6BCA /* shader_012_frag.ngs in Resources */,
 				BBFBFEDC1EB94FFB008B3C01 /* sound_052.wav in Resources */,
 				BB85AEB21EBA2FB600CC6BCA /* texture_003.ngt in Resources */,
 				BB85AEC01EBA2FB600CC6BCA /* texture_010.ngt in Resources */,
@@ -3135,6 +3172,7 @@
 				BB85AEC21EBA2FB600CC6BCA /* texture_011.ngt in Resources */,
 				BB85AEDA1EBA2FB600CC6BCA /* texture_023.ngt in Resources */,
 				BB85AEBC1EBA2FB600CC6BCA /* texture_008.ngt in Resources */,
+				BB85AF151EBA3A4800CC6BCA /* shader_010_vert.ngs in Resources */,
 				BB85AE901EBA2FA300CC6BCA /* texture_043.ngt in Resources */,
 				BB85AECE1EBA2FB600CC6BCA /* texture_017.ngt in Resources */,
 			);
