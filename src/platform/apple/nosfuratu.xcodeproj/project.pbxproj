@@ -2941,6 +2941,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0ADF18A2178E2185005DA99E /* Build configuration list for PBXNativeTarget "nosfuratu ios" */;
 			buildPhases = (
+				BBD5B3CA1EBA787B0062A4EC /* ShellScript */,
 				0ADF1870178E2185005DA99E /* Sources */,
 				0ADF1871178E2185005DA99E /* Frameworks */,
 				0ADF1872178E2185005DA99E /* Resources */,
@@ -2958,6 +2959,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB44C31B1DB0303F003E633F /* Build configuration list for PBXNativeTarget "nosfuratu mac" */;
 			buildPhases = (
+				BBD5B3C91EBA781C0062A4EC /* ShellScript */,
 				BB44C3061DB0303F003E633F /* Sources */,
 				BB44C3071DB0303F003E633F /* Frameworks */,
 				BB44C3081DB0303F003E633F /* Resources */,
@@ -3287,6 +3289,35 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BBD5B3C91EBA781C0062A4EC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd $SRCROOT/../../../src/core/framework/tools\nchmod a+x encrypt_textures_and_shaders.sh\n./encrypt_textures_and_shaders.sh";
+		};
+		BBD5B3CA1EBA787B0062A4EC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd $SRCROOT/../../../src/core/framework/tools\nchmod a+x encrypt_textures_and_shaders.sh\n./encrypt_textures_and_shaders.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0ADF1870178E2185005DA99E /* Sources */ = {
