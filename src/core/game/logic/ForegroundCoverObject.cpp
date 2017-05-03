@@ -39,13 +39,13 @@ ForegroundCoverObject* ForegroundCoverObject::create(int gridX, int gridY, int t
         case ForegroundCoverObjectType_Wall_Window_Bottom:
             return new LandableForegroundCoverObject(gridX, 96, 16, 16, fcot);
         case ForegroundCoverObjectType_Roof_Side_Left:
-            return new LandableForegroundCoverObject(gridX, gridY, 16, 4, fcot, GROUND_SOUND_WOOD, 0, 0, 1, 0.5f);
+            return new LandableForegroundCoverObject(gridX, gridY, 16, 4, fcot, GROUND_SOUND_ID_WOOD, 0, 0, 1, 0.5f);
         case ForegroundCoverObjectType_Roof_Side_Right:
-            return new LandableForegroundCoverObject(gridX, gridY, 16, 4, fcot, GROUND_SOUND_WOOD, 0, 0, 1, 0.5f);
+            return new LandableForegroundCoverObject(gridX, gridY, 16, 4, fcot, GROUND_SOUND_ID_WOOD, 0, 0, 1, 0.5f);
         case ForegroundCoverObjectType_Roof_Plain:
-            return new LandableForegroundCoverObject(gridX, gridY, 16, 6, fcot, GROUND_SOUND_WOOD, 0, 0, 1, 0.64f);
+            return new LandableForegroundCoverObject(gridX, gridY, 16, 6, fcot, GROUND_SOUND_ID_WOOD, 0, 0, 1, 0.64f);
         case ForegroundCoverObjectType_Roof_Chimney:
-            return new LandableForegroundCoverObject(gridX, gridY, 16, 6, fcot, GROUND_SOUND_WOOD, 0, 0, 1, 0.64f);
+            return new LandableForegroundCoverObject(gridX, gridY, 16, 6, fcot, GROUND_SOUND_ID_WOOD, 0, 0, 1, 0.64f);
         case ForegroundCoverObjectType_Wall_PassThrough:
             return new ForegroundCoverObject(gridX, gridY, 16, 16, fcot);
         case ForegroundCoverObjectType_Wall_Bottom_PassThrough:

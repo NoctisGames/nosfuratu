@@ -10,8 +10,10 @@
 
 #include "OpenGLTextureProgram.h"
 #include "OpenGLManager.h"
+#include "FrameworkConstants.h"
+#include "GameConstants.h"
 
-OpenGLSnakeDeathTextureGpuProgramWrapper::OpenGLSnakeDeathTextureGpuProgramWrapper() : SnakeDeathTextureGpuProgramWrapper(), m_program(new OpenGLTextureProgram("texture_shader.vsh", "snake_death_texture_shader.fsh"))
+OpenGLSnakeDeathTextureGpuProgramWrapper::OpenGLSnakeDeathTextureGpuProgramWrapper() : SnakeDeathTextureGpuProgramWrapper(), m_program(new OpenGLTextureProgram(TEXTURE_VERTEX_SHADER, SNAKE_DEATH_FRAGMENT_SHADER))
 {
     // Empty
 }

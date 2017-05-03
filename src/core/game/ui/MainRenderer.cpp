@@ -81,33 +81,33 @@
 #include <iomanip>
 
 MainRenderer::MainRenderer(int maxBatchSize) : Renderer(maxBatchSize),
-m_font(new Font("misc", 0, 0, 16, 64, 75, TEXTURE_SIZE_1024)),
-m_jon(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_jon" : "jon")),
-m_level_editor(new TextureWrapper("level_editor")),
-m_misc(new TextureWrapper("misc")),
-m_title_screen(new TextureWrapper("title_screen")),
-m_trans_death_shader_helper(new TextureWrapper("trans_death_shader_helper")),
-m_tutorial(new TextureWrapper(MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial")),
-m_vampire(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_vampire" : "vampire")),
-m_world_1_background_lower_part_1(new TextureWrapper("world_1_background_lower_part_1", true)),
-m_world_1_background_lower_part_2(new TextureWrapper("world_1_background_lower_part_2", true)),
-m_world_1_background_mid(new TextureWrapper("world_1_background_mid", true)),
-m_world_1_background_upper(new TextureWrapper("world_1_background_upper", true)),
-m_world_1_cutscene_1(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_cutscene_1" : "world_1_cutscene_1")),
-m_world_1_cutscene_2(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_cutscene_2" : "world_1_cutscene_2")),
-m_world_1_end_boss_part_1(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_end_boss_part_1" : "world_1_end_boss_part_1")),
-m_world_1_end_boss_part_2(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_end_boss_part_2" : "world_1_end_boss_part_2")),
-m_world_1_end_boss_part_3(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_end_boss_part_3" : "world_1_end_boss_part_3")),
-m_world_1_enemies(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_enemies" : "world_1_enemies")),
-m_world_1_ground(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_ground" : "world_1_ground")),
-m_world_1_mid_boss_part_1(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_mid_boss_part_1" : "world_1_mid_boss_part_1")),
-m_world_1_mid_boss_part_2(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_mid_boss_part_2" : "world_1_mid_boss_part_2")),
-m_world_1_mid_boss_part_3(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_mid_boss_part_3" : "world_1_mid_boss_part_3")),
-m_world_1_objects_part_1(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_objects_part_1" : "world_1_objects_part_1")),
-m_world_1_objects_part_2(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_objects_part_2" : "world_1_objects_part_2")),
-m_world_1_special(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_special" : "world_1_special")),
-m_world_map_screen_part_1(new TextureWrapper("world_map_screen_part_1")),
-m_world_map_screen_part_2(new TextureWrapper("world_map_screen_part_2")),
+m_font(new Font(TEX_MISC, 0, 0, 16, 64, 75, TEXTURE_SIZE_1024)),
+m_jon(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_JON : TEX_JON)),
+m_level_editor(new TextureWrapper(TEX_LEVEL_EDITOR)),
+m_misc(new TextureWrapper(TEX_MISC)),
+m_title_screen(new TextureWrapper(TEX_TITLE)),
+m_trans_death_shader_helper(new TextureWrapper(TEX_TRANS_DEATH_HELPER)),
+m_tutorial(new TextureWrapper(MAIN_ASSETS->isUsingGamePadTextureSet() ? TEX_GAMEPAD_TUTORIAL : MAIN_ASSETS->isUsingDesktopTextureSet() ? TEX_KEYBOARD_TUTORIAL : MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_TUTORIAL : TEX_TUTORIAL)),
+m_vampire(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_VAMPIRE : TEX_VAMPIRE)),
+m_world_1_background_lower_part_1(new TextureWrapper(TEX_WORLD_1_BG_LOWER_1, true)),
+m_world_1_background_lower_part_2(new TextureWrapper(TEX_WORLD_1_BG_LOWER_2, true)),
+m_world_1_background_mid(new TextureWrapper(TEX_WORLD_1_BG_MID, true)),
+m_world_1_background_upper(new TextureWrapper(TEX_WORLD_1_BG_UPPER, true)),
+m_world_1_cutscene_1(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_CUTSCENE_1 : TEX_WORLD_1_CUTSCENE_1)),
+m_world_1_cutscene_2(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_CUTSCENE_2 : TEX_WORLD_1_CUTSCENE_2)),
+m_world_1_end_boss_part_1(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_END_BOSS_1 : TEX_WORLD_1_END_BOSS_1)),
+m_world_1_end_boss_part_2(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_END_BOSS_2 : TEX_WORLD_1_END_BOSS_2)),
+m_world_1_end_boss_part_3(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_END_BOSS_3 : TEX_WORLD_1_END_BOSS_3)),
+m_world_1_enemies(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_ENEMIES : TEX_WORLD_1_ENEMIES)),
+m_world_1_ground(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_GROUND : TEX_WORLD_1_GROUND)),
+m_world_1_mid_boss_part_1(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_MID_BOSS_1 : TEX_WORLD_1_MID_BOSS_1)),
+m_world_1_mid_boss_part_2(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_MID_BOSS_2 : TEX_WORLD_1_MID_BOSS_2)),
+m_world_1_mid_boss_part_3(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_MID_BOSS_3 : TEX_WORLD_1_MID_BOSS_3)),
+m_world_1_objects_part_1(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_OBJECTS_1 : TEX_WORLD_1_OBJECTS_1)),
+m_world_1_objects_part_2(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_OBJECTS_2 : TEX_WORLD_1_OBJECTS_2)),
+m_world_1_special(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_WORLD_1_SPECIAL : TEX_WORLD_1_SPECIAL)),
+m_world_map_screen_part_1(new TextureWrapper(TEX_WORLD_MAP_1)),
+m_world_map_screen_part_2(new TextureWrapper(TEX_WORLD_MAP_2)),
 m_transScreenGpuProgramWrapper(nullptr),
 m_fadeScreenGpuProgramWrapper(nullptr),
 m_pointTransScreenGpuProgramWrapper(nullptr),
@@ -261,7 +261,7 @@ void MainRenderer::releaseDeviceDependentResources()
 
 void MainRenderer::load(RendererType rendererType)
 {
-    m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial";
+    m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? TEX_GAMEPAD_TUTORIAL : MAIN_ASSETS->isUsingDesktopTextureSet() ? TEX_KEYBOARD_TUTORIAL : MAIN_ASSETS->isUsingCompressedTextureSet() ? TEX_COMPRESSED_TUTORIAL : TEX_TUTORIAL;
     
     switch (rendererType)
     {
@@ -2179,7 +2179,7 @@ void MainRenderer::renderLoading(float deltaTime)
     
     m_rendererHelper->updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    static Animation anim = Animation("misc", 0, 900, 144, 96, 1296, 96, TEXTURE_SIZE_1024, true, 0.06f, 7);
+    static Animation anim = Animation(TEX_MISC, 0, 900, 144, 96, 1296, 96, TEXTURE_SIZE_1024, true, 0.06f, 7);
     
     static float width = 1.265625f;
     static float height = 0.84375f;

@@ -14,9 +14,10 @@
 #include "Direct3DManager.h"
 #include "GpuTextureWrapper.h"
 #include "Vector2D.h"
+#include "GameConstants.h"
 
 Direct3DShockwaveTextureGpuProgramWrapper::Direct3DShockwaveTextureGpuProgramWrapper() : ShockwaveTextureGpuProgramWrapper(),
-m_program(new Direct3DTextureProgram(L"ShockwaveTextureVertexShader.cso", L"ShockwaveTexturePixelShader.cso"))
+m_program(new Direct3DTextureProgram(SHOCKWAVE_VERTEX_SHADER, SHOCKWAVE_FRAGMENT_SHADER))
 {
 	m_program->createConstantBuffer(&m_centerXConstantBuffer);
 	m_program->createConstantBuffer(&m_centerYConstantBuffer);

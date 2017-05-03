@@ -10,7 +10,7 @@
 
 #include "OpenGLManager.h"
 
-OpenGLTransDeathProgram::OpenGLTransDeathProgram(const char* vertexShaderPath, const char* fragmentShaderPath) : OpenGLProgram(vertexShaderPath, fragmentShaderPath)
+OpenGLTransDeathProgram::OpenGLTransDeathProgram(const char* vertexShaderName, const char* fragmentShaderName) : OpenGLProgram(vertexShaderName, fragmentShaderName)
 {
     u_texture_unit_location = glGetUniformLocation(m_programObjectId, "u_TextureUnit");
     u_texture_unit_gray_map_location = glGetUniformLocation(m_programObjectId, "u_TextureUnitGrayMap");

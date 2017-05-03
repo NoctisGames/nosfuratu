@@ -18,7 +18,7 @@ public:
     GLint u_direction_location;
     GLint a_position_location;
     
-    OpenGLFramebufferRadialBlurGpuProgram(const char* vertexShaderPath, const char* fragmentShaderPath);
+    OpenGLFramebufferRadialBlurGpuProgram(const char* vertexShaderName, const char* fragmentShaderName);
     
     virtual void bind();
     

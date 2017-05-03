@@ -126,7 +126,7 @@ void ComingSoon::exit(MainScreen* ms)
 {
     m_isRequestingNextState = false;
     
-    NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
+    NG_AUDIO_ENGINE->loadMusic(MUSIC_LEVEL_SELECT_LOOP);
     NG_AUDIO_ENGINE->playMusic(true);
 }
 

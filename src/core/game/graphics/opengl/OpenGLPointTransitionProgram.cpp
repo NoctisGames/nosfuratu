@@ -10,7 +10,7 @@
 
 #include "OpenGLManager.h"
 
-OpenGLPointTransitionProgram::OpenGLPointTransitionProgram(const char* vertexShaderPath, const char* fragmentShaderPath) : OpenGLProgram(vertexShaderPath, fragmentShaderPath)
+OpenGLPointTransitionProgram::OpenGLPointTransitionProgram(const char* vertexShaderName, const char* fragmentShaderName) : OpenGLProgram(vertexShaderName, fragmentShaderName)
 {
     u_mvp_matrix_location = glGetUniformLocation(m_programObjectId, "u_MvpMatrix");
     u_center_x_unit_location = glGetUniformLocation(m_programObjectId, "u_CenterX");

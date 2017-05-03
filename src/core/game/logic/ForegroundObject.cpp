@@ -29,59 +29,59 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
     switch (fot)
     {
         case ForegroundObjectType_GrassPlatformLeft:
-            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f);
+            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_ID_GRASS, 0, 0, 1, 0.83333333333333f);
         case ForegroundObjectType_GrassPlatformCenter:
-            return new PlatformObject(gridX, gridY, 14, 6, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f);
+            return new PlatformObject(gridX, gridY, 14, 6, fot, GROUND_SOUND_ID_GRASS, 0, 0, 1, 0.83333333333333f);
         case ForegroundObjectType_GrassPlatformRight:
-            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f);
+            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_ID_GRASS, 0, 0, 1, 0.83333333333333f);
             
         case ForegroundObjectType_CavePlatformLeft:
-            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_CAVE, 0, 0, 1, 0.83333333333333f);
+            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_ID_CAVE, 0, 0, 1, 0.83333333333333f);
         case ForegroundObjectType_CavePlatformCenter:
-            return new PlatformObject(gridX, gridY, 14, 6, fot, GROUND_SOUND_CAVE, 0, 0, 1, 0.83333333333333f);
+            return new PlatformObject(gridX, gridY, 14, 6, fot, GROUND_SOUND_ID_CAVE, 0, 0, 1, 0.83333333333333f);
         case ForegroundObjectType_CavePlatformRight:
-            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_CAVE, 0, 0, 1, 0.83333333333333f);
+            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_ID_CAVE, 0, 0, 1, 0.83333333333333f);
             
         case ForegroundObjectType_RockLarge:
-            return new ForegroundObject(gridX, gridY, 44, 32, fot, GROUND_SOUND_CAVE, 0.03551136363636f, 0.0078125f, 0.77840909090909f, 0.96875f);
+            return new ForegroundObject(gridX, gridY, 44, 32, fot, GROUND_SOUND_ID_CAVE, 0.03551136363636f, 0.0078125f, 0.77840909090909f, 0.96875f);
         case ForegroundObjectType_RockMedium:
-            return new ForegroundObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_CAVE, 0.0625f, 0.015625f, 0.7734375f, 0.73958333333333f);
+            return new ForegroundObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_ID_CAVE, 0.0625f, 0.015625f, 0.7734375f, 0.73958333333333f);
         case ForegroundObjectType_RockSmall:
         case ForegroundObjectType_RockSmallCracked:
-            return new ForegroundObject(gridX, gridY, 24, 23, fot, GROUND_SOUND_CAVE, 0.328125f, 0.20923913043478f, 0.328125f, 0.27717391304348f);
+            return new ForegroundObject(gridX, gridY, 24, 23, fot, GROUND_SOUND_ID_CAVE, 0.328125f, 0.20923913043478f, 0.328125f, 0.27717391304348f);
             
         case ForegroundObjectType_StumpBig:
-            return new ForegroundObject(gridX, gridY, 16, 18, fot, GROUND_SOUND_GRASS, 0.19140625f, 0.03125f, 0.5f, 0.94444444444444f);
+            return new ForegroundObject(gridX, gridY, 16, 18, fot, GROUND_SOUND_ID_GRASS, 0.19140625f, 0.03125f, 0.5f, 0.94444444444444f);
         case ForegroundObjectType_StumpSmall:
-            return new ForegroundObject(gridX, gridY, 20, 17, fot, GROUND_SOUND_GRASS, 0.215625f, 0.07352941176471f, 0.375f, 0.73897058823529f);
+            return new ForegroundObject(gridX, gridY, 20, 17, fot, GROUND_SOUND_ID_GRASS, 0.215625f, 0.07352941176471f, 0.375f, 0.73897058823529f);
             
         case ForegroundObjectType_EndSign:
             return new EndSign(gridX, gridY, 7, 10, fot);
             
         case ForegroundObjectType_ThornsLeft:
-            return new DeadlyObject(gridX, gridY, 5, 7, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            return new DeadlyObject(gridX, gridY, 5, 7, fot, GROUND_SOUND_ID_NONE, 0, 0, 1, 0.8f);
         case ForegroundObjectType_ThornsCenterSmall:
-            return new DeadlyObject(gridX, gridY, 11, 7, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            return new DeadlyObject(gridX, gridY, 11, 7, fot, GROUND_SOUND_ID_NONE, 0, 0, 1, 0.8f);
         case ForegroundObjectType_ThornsCenterBig:
-            return new DeadlyObject(gridX, gridY, 22, 7, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            return new DeadlyObject(gridX, gridY, 22, 7, fot, GROUND_SOUND_ID_NONE, 0, 0, 1, 0.8f);
         case ForegroundObjectType_ThornsRight:
-            return new DeadlyObject(gridX, gridY, 5, 7, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            return new DeadlyObject(gridX, gridY, 5, 7, fot, GROUND_SOUND_ID_NONE, 0, 0, 1, 0.8f);
             
         case ForegroundObjectType_LogVerticalTall:
-            return new ForegroundObject(gridX, gridY, 8, 11, fot, GROUND_SOUND_GRASS, 0.1484375f, 0.02840909090909f, 0.5f, 0.92613636363636f);
+            return new ForegroundObject(gridX, gridY, 8, 11, fot, GROUND_SOUND_ID_GRASS, 0.1484375f, 0.02840909090909f, 0.5f, 0.92613636363636f);
         case ForegroundObjectType_LogVerticalShort:
-            return new ForegroundObject(gridX, gridY, 8, 6, fot, GROUND_SOUND_GRASS, 0.1462f, 0.05208333333333f, 0.4453125f, 0.875f);
+            return new ForegroundObject(gridX, gridY, 8, 6, fot, GROUND_SOUND_ID_GRASS, 0.1462f, 0.05208333333333f, 0.4453125f, 0.875f);
             
         case ForegroundObjectType_JumpSpringLightFlushNew:
-            return new JumpSpringLightFlush(gridX, gridY, 11, 11, fot, GROUND_SOUND_NONE, 0, 0.363636363636364f, 1, 0.1f, 18.0f);
+            return new JumpSpringLightFlush(gridX, gridY, 11, 11, fot, GROUND_SOUND_ID_NONE, 0, 0.363636363636364f, 1, 0.1f, 18.0f);
         case ForegroundObjectType_JumpSpringLightFlush:
-            return new JumpSpringLightFlush(gridX, gridY, 10, 7, fot, GROUND_SOUND_NONE, 0, 0.033f, 1, 0.1f, 18.0f);
+            return new JumpSpringLightFlush(gridX, gridY, 10, 7, fot, GROUND_SOUND_ID_NONE, 0, 0.033f, 1, 0.1f, 18.0f);
         case ForegroundObjectType_JumpSpringLight:
-            return new ProvideBoostObject(gridX, gridY, 6, 5, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.525f, 18.0f);
+            return new ProvideBoostObject(gridX, gridY, 6, 5, fot, GROUND_SOUND_ID_NONE, 0, 0, 1, 0.525f, 18.0f);
         case ForegroundObjectType_JumpSpringMedium:
-            return new ProvideBoostObject(gridX, gridY, 17, 9, fot, GROUND_SOUND_NONE, 0, 0.20138888888889f, 0.6f, 0.33333333333333f, 24.0f);
+            return new ProvideBoostObject(gridX, gridY, 17, 9, fot, GROUND_SOUND_ID_NONE, 0, 0.20138888888889f, 0.6f, 0.33333333333333f, 24.0f);
         case ForegroundObjectType_JumpSpringHeavy:
-            return new ProvideBoostObject(gridX, gridY, 17, 14, fot, GROUND_SOUND_NONE, 0, 0, 0.6f, 0.52678571428571f, 32.0f);
+            return new ProvideBoostObject(gridX, gridY, 17, 14, fot, GROUND_SOUND_ID_NONE, 0, 0, 0.6f, 0.52678571428571f, 32.0f);
             
         case ForegroundObjectType_SpikeGrassSingle:
             return new LandingDeathObject(gridX, gridY, 6, 6, fot, 0.1f, 0.04166666666667f, 0.8f, 0.85833333333333f);
@@ -112,75 +112,75 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new RunningIntoDeathObject(gridX, gridY, 6, 34, fot);
             
         case ForegroundObjectType_SpikeStar:
-            return new DeadlyObject(gridX, gridY, 14, 14, fot, GROUND_SOUND_NONE, 0.18f, 0.18f, 0.64f, 0.64f);
+            return new DeadlyObject(gridX, gridY, 14, 14, fot, GROUND_SOUND_ID_NONE, 0.18f, 0.18f, 0.64f, 0.64f);
             
         case ForegroundObjectType_VerticalSaw:
-            return new VerticalSaw(gridX, 95, 15, 33, fot, GROUND_SOUND_NONE, 0.3f, 0.33333333333333f, 0.3f, 0.66666666666667f);
+            return new VerticalSaw(gridX, 95, 15, 33, fot, GROUND_SOUND_ID_NONE, 0.3f, 0.33333333333333f, 0.3f, 0.66666666666667f);
             
         case ForegroundObjectType_GiantTree:
-            return new ForegroundObject(gridX, gridY, 68, 65, fot, GROUND_SOUND_NONE, 0.47265625f, 0.009765625f, 0.15625f, 0.990234375f);
+            return new ForegroundObject(gridX, gridY, 68, 65, fot, GROUND_SOUND_ID_NONE, 0.47265625f, 0.009765625f, 0.15625f, 0.990234375f);
         case ForegroundObjectType_GiantShakingTree:
-            return new GiantShakingTree(gridX, gridY, 68, 65, fot, GROUND_SOUND_NONE, 0.47265625f, 0.009765625f, 0.15625f, 0.990234375f);
+            return new GiantShakingTree(gridX, gridY, 68, 65, fot, GROUND_SOUND_ID_NONE, 0.47265625f, 0.009765625f, 0.15625f, 0.990234375f);
         case ForegroundObjectType_GiantPerchTree:
-            return new ForegroundObject(gridX, gridY, 68, 65, fot, GROUND_SOUND_NONE, 0, 0.009765625f, 1, 0.990234375f);
+            return new ForegroundObject(gridX, gridY, 68, 65, fot, GROUND_SOUND_ID_NONE, 0, 0.009765625f, 1, 0.990234375f);
             
         case ForegroundObjectType_SpikeTower:
-            return new SpikeTower(gridX, 95, 32, 56, fot, ForegroundObjectType_SpikeTowerBg, GROUND_SOUND_NONE, 0, 0, 1, 0.54017857142857f);
+            return new SpikeTower(gridX, 95, 32, 56, fot, ForegroundObjectType_SpikeTowerBg, GROUND_SOUND_ID_NONE, 0, 0, 1, 0.54017857142857f);
         case ForegroundObjectType_SpikeTowerBg:
             return new ForegroundObject(gridX, 95, 32, 56, fot);
             
         case ForegroundObjectType_SpikedBallRollingLeft:
-            return new SpikedBallRollingLeft(gridX, gridY, 32, 30, fot, GROUND_SOUND_NONE, 0.1f, 0.1f, 0.8f, 0.8f);
+            return new SpikedBallRollingLeft(gridX, gridY, 32, 30, fot, GROUND_SOUND_ID_NONE, 0.1f, 0.1f, 0.8f, 0.8f);
         case ForegroundObjectType_SpikedBallRollingRight:
-            return new SpikedBallRollingRight(gridX, gridY, 32, 30, fot, GROUND_SOUND_NONE, 0.1f, 0.1f, 0.8f, 0.8f);
+            return new SpikedBallRollingRight(gridX, gridY, 32, 30, fot, GROUND_SOUND_ID_NONE, 0.1f, 0.1f, 0.8f, 0.8f);
             
         case ForegroundObjectType_SpikedBallChain:
-            return new SpikedBallChain(gridX, gridY, 101, 82, fot, GROUND_SOUND_NONE, 0.72f, 0, 0.14f, 0.25f);
+            return new SpikedBallChain(gridX, gridY, 101, 82, fot, GROUND_SOUND_ID_NONE, 0.72f, 0, 0.14f, 0.25f);
         case ForegroundObjectType_SpikedBall:
-            return new SpikedBall(gridX, gridY, 32, 30, fot, GROUND_SOUND_NONE, 0, 0.4f, 1, 0.8f);
+            return new SpikedBall(gridX, gridY, 32, 30, fot, GROUND_SOUND_ID_NONE, 0, 0.4f, 1, 0.8f);
             
         case ForegroundObjectType_MetalGrassPlatform:
-            return new PlatformObject(gridX, gridY, 16, 6, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.89583333333333f);
+            return new PlatformObject(gridX, gridY, 16, 6, fot, GROUND_SOUND_ID_GRASS, 0, 0, 1, 0.89583333333333f);
         case ForegroundObjectType_MetalGrassPlatformLeft:
-            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.89583333333333f);
+            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_ID_GRASS, 0, 0, 1, 0.89583333333333f);
         case ForegroundObjectType_MetalGrassPlatformCenter:
-            return new PlatformObject(gridX, gridY, 16, 6, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.89583333333333f);
+            return new PlatformObject(gridX, gridY, 16, 6, fot, GROUND_SOUND_ID_GRASS, 0, 0, 1, 0.89583333333333f);
         case ForegroundObjectType_MetalGrassPlatformRight:
-            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.89583333333333f);
+            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_ID_GRASS, 0, 0, 1, 0.89583333333333f);
             
         case ForegroundObjectType_WoodPlatform:
-            return new PlatformObject(gridX, gridY, 16, 4, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.875f);
+            return new PlatformObject(gridX, gridY, 16, 4, fot, GROUND_SOUND_ID_WOOD, 0, 0, 1, 0.875f);
         case ForegroundObjectType_WoodBoxTop:
-            return new ForegroundObject(gridX, gridY, 16, 16, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.96875f);
+            return new ForegroundObject(gridX, gridY, 16, 16, fot, GROUND_SOUND_ID_WOOD, 0, 0, 1, 0.96875f);
         case ForegroundObjectType_WoodBox:
-            return new ForegroundObject(gridX, gridY, 16, 16, fot, GROUND_SOUND_WOOD);
+            return new ForegroundObject(gridX, gridY, 16, 16, fot, GROUND_SOUND_ID_WOOD);
             
         case ForegroundObjectType_GreenThornsLeft:
-            return new DeadlyObject(gridX, gridY, 8, 8, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            return new DeadlyObject(gridX, gridY, 8, 8, fot, GROUND_SOUND_ID_NONE, 0, 0, 1, 0.8f);
         case ForegroundObjectType_GreenThornsCenterSmall:
-            return new DeadlyObject(gridX, gridY, 12, 8, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            return new DeadlyObject(gridX, gridY, 12, 8, fot, GROUND_SOUND_ID_NONE, 0, 0, 1, 0.8f);
         case ForegroundObjectType_GreenThornsCenterBig:
-            return new DeadlyObject(gridX, gridY, 24, 8, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            return new DeadlyObject(gridX, gridY, 24, 8, fot, GROUND_SOUND_ID_NONE, 0, 0, 1, 0.8f);
         case ForegroundObjectType_GreenThornsRight:
-            return new DeadlyObject(gridX, gridY, 8, 8, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            return new DeadlyObject(gridX, gridY, 8, 8, fot, GROUND_SOUND_ID_NONE, 0, 0, 1, 0.8f);
             
         case ForegroundObjectType_Logs:
-            return new ForegroundObject(gridX, gridY, 37, 10, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.9375f);
+            return new ForegroundObject(gridX, gridY, 37, 10, fot, GROUND_SOUND_ID_GRASS, 0, 0, 1, 0.9375f);
             
         case ForegroundObjectType_Stone_Bottom:
-            return new BlockingObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_NONE);
+            return new BlockingObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_ID_NONE);
         case ForegroundObjectType_Stone_Middle:
-            return new BlockingObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_NONE);
+            return new BlockingObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_ID_NONE);
         case ForegroundObjectType_Stone_Top:
-            return new BlockingObject(gridX, gridY, 28, 24, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.95833333333333f);
+            return new BlockingObject(gridX, gridY, 28, 24, fot, GROUND_SOUND_ID_GRASS, 0, 0, 1, 0.95833333333333f);
         case ForegroundObjectType_Stone_Platform:
-            return new BlockingObject(gridX, gridY, 28, 7, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.85714285714286f);
+            return new BlockingObject(gridX, gridY, 28, 7, fot, GROUND_SOUND_ID_GRASS, 0, 0, 1, 0.85714285714286f);
             
         case ForegroundObjectType_Floating_Platform:
-            return new FloatingPlatformObject(gridX, gridY, 20, 11, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.875f); // Really should be a metallic sound
+            return new FloatingPlatformObject(gridX, gridY, 20, 11, fot, GROUND_SOUND_ID_WOOD, 0, 0, 1, 0.875f); // Really should be a metallic sound
             
         case ForegroundObjectType_Stone_Square:
-            return new BlockingObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_NONE);
+            return new BlockingObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_ID_NONE);
     }
     
     assert(false);
@@ -589,7 +589,7 @@ bool DeadlyObject::isJonBlockedAbove(Jon& jon, float deltaTime)
     return false;
 }
 
-LandingDeathObject::LandingDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, GROUND_SOUND_NONE, boundsX, boundsY, boundsWidth, boundsHeight)
+LandingDeathObject::LandingDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, GROUND_SOUND_ID_NONE, boundsX, boundsY, boundsWidth, boundsHeight)
 {
     // Empty
 }
@@ -634,7 +634,7 @@ bool RunningIntoDeathObject::isEntityBlockedOnRight(PhysicalEntity* entity, floa
     return false;
 }
 
-DeathFromAboveObject::DeathFromAboveObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, GROUND_SOUND_NONE, boundsX, boundsY, boundsWidth, boundsHeight)
+DeathFromAboveObject::DeathFromAboveObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, GROUND_SOUND_ID_NONE, boundsX, boundsY, boundsWidth, boundsHeight)
 {
     // Empty
 }
@@ -813,14 +813,14 @@ void VerticalSaw::updateBounds()
         {
             m_isOnScreen = true;
             
-            NG_AUDIO_ENGINE->playSound(SOUND_SAW_GRIND, true);
+            NG_AUDIO_ENGINE->playSound(SOUND_ID_SAW_GRIND, true);
         }
     }
     else if (m_isOnScreen)
     {
         m_isOnScreen = false;
         
-        NG_AUDIO_ENGINE->stopSound(SOUND_SAW_GRIND);
+        NG_AUDIO_ENGINE->stopSound(SOUND_ID_SAW_GRIND);
     }
 }
 
@@ -982,7 +982,7 @@ void SpikedBallRollingLeft::update(float deltaTime)
 
 				if (m_needsToPlaySound)
 				{
-					NG_AUDIO_ENGINE->playSound(SOUND_SPIKED_BALL_ROLLING, true);
+					NG_AUDIO_ENGINE->playSound(SOUND_ID_SPIKED_BALL_ROLLING, true);
 
 					m_needsToPlaySound = false;
 				}
@@ -997,7 +997,7 @@ void SpikedBallRollingLeft::update(float deltaTime)
 					m_velocity.setX(0);
 					m_acceleration.setX(0);
 
-					NG_AUDIO_ENGINE->stopSound(SOUND_SPIKED_BALL_ROLLING);
+					NG_AUDIO_ENGINE->stopSound(SOUND_ID_SPIKED_BALL_ROLLING);
 
 					m_hasFallen = true;
 					m_needsToPlaySound = true;
@@ -1045,7 +1045,7 @@ void SpikedBallRollingLeft::stop()
 	m_velocity.setX(0);
 	m_acceleration.setX(0);
 
-	NG_AUDIO_ENGINE->stopSound(SOUND_SPIKED_BALL_ROLLING);
+	NG_AUDIO_ENGINE->stopSound(SOUND_ID_SPIKED_BALL_ROLLING);
 }
 
 SpikedBallRollingRight::SpikedBallRollingRight(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight),
@@ -1100,7 +1100,7 @@ void SpikedBallRollingRight::update(float deltaTime)
 
 				if (m_needsToPlaySound)
 				{
-					NG_AUDIO_ENGINE->playSound(SOUND_SPIKED_BALL_ROLLING, true);
+					NG_AUDIO_ENGINE->playSound(SOUND_ID_SPIKED_BALL_ROLLING, true);
 
 					m_needsToPlaySound = false;
 				}
@@ -1115,7 +1115,7 @@ void SpikedBallRollingRight::update(float deltaTime)
 					m_velocity.setX(0);
 					m_acceleration.setX(0);
 
-					NG_AUDIO_ENGINE->stopSound(SOUND_SPIKED_BALL_ROLLING);
+					NG_AUDIO_ENGINE->stopSound(SOUND_ID_SPIKED_BALL_ROLLING);
 
 					m_hasFallen = true;
 					m_needsToPlaySound = true;
@@ -1163,7 +1163,7 @@ void SpikedBallRollingRight::stop()
 	m_velocity.setX(0);
 	m_acceleration.setX(0);
 
-	NG_AUDIO_ENGINE->stopSound(SOUND_SPIKED_BALL_ROLLING);
+	NG_AUDIO_ENGINE->stopSound(SOUND_ID_SPIKED_BALL_ROLLING);
 }
 
 SpikedBall::SpikedBall(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isFalling(false), m_hasTriggeredSnakeHit(false)
@@ -1274,7 +1274,7 @@ bool SpikedBallChain::isJonHittingHorizontally(Jon& jon, float deltaTime)
         m_isSnapping = true;
         m_fStateTime = 0;
         
-        NG_AUDIO_ENGINE->playSound(SOUND_CHAIN_SNAP);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_CHAIN_SNAP);
         
         return true;
     }
@@ -1292,7 +1292,7 @@ bool SpikedBallChain::isJonHittingFromBelow(Jon& jon, float deltaTime)
         m_isSnapping = true;
         m_fStateTime = 0;
         
-        NG_AUDIO_ENGINE->playSound(SOUND_CHAIN_SNAP);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_CHAIN_SNAP);
         
         return true;
     }

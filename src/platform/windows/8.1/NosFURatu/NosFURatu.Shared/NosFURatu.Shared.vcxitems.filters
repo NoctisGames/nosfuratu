@@ -54,16 +54,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\shader\*PixelShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\shader\*frag.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\shader\*VertexShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\shader\*vert.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\shader\*PixelShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\shader\*frag.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\shader\*VertexShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\shader\*vert.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

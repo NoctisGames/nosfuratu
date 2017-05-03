@@ -10,7 +10,7 @@
 
 #include "OpenGLManager.h"
 
-OpenGLTransitionProgram::OpenGLTransitionProgram(const char* vertexShaderPath, const char* fragmentShaderPath) : OpenGLProgram(vertexShaderPath, fragmentShaderPath)
+OpenGLTransitionProgram::OpenGLTransitionProgram(const char* vertexShaderName, const char* fragmentShaderName) : OpenGLProgram(vertexShaderName, fragmentShaderName)
 {
     u_from_location = glGetUniformLocation(m_programObjectId, "u_from");
     u_to_location = glGetUniformLocation(m_programObjectId, "u_to");

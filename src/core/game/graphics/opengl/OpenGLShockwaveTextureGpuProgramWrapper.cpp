@@ -11,8 +11,10 @@
 #include "OpenGLShockwaveTextureProgram.h"
 #include "OpenGLManager.h"
 #include "Vector2D.h"
+#include "FrameworkConstants.h"
+#include "GameConstants.h"
 
-OpenGLShockwaveTextureGpuProgramWrapper::OpenGLShockwaveTextureGpuProgramWrapper() : ShockwaveTextureGpuProgramWrapper(), m_program(new OpenGLShockwaveTextureProgram("pp_shockwave_texture_shader.vsh", "pp_shockwave_texture_shader.fsh"))
+OpenGLShockwaveTextureGpuProgramWrapper::OpenGLShockwaveTextureGpuProgramWrapper() : ShockwaveTextureGpuProgramWrapper(), m_program(new OpenGLShockwaveTextureProgram(SHOCKWAVE_VERTEX_SHADER, SHOCKWAVE_FRAGMENT_SHADER))
 {
     // Empty
 }
