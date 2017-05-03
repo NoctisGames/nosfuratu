@@ -69,8 +69,6 @@ public:
     
     virtual void render();
     
-    void initSounds();
-    
     int getRequestedAction();
     
     void clearRequestedAction();
@@ -88,6 +86,8 @@ private:
     bool m_wasPaused;
     
     void internalUpdate();
+    
+    void initSounds();
 };
 
 #endif /* defined(__nosfuratu__MainScreen__) */
