@@ -3310,7 +3310,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $SRCROOT/../../../src/core/game/tools\nchmod a+x encrypt_textures_and_shaders.sh\n./encrypt_textures_and_shaders.sh";
+			shellScript = "cd $SRCROOT/../../../src/core/game/tools\n./encrypt_textures_and_shaders.sh";
 		};
 		BBD5B3CA1EBA787B0062A4EC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3323,7 +3323,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $SRCROOT/../../../src/core/game/tools\nchmod a+x encrypt_textures_and_shaders.sh\n./encrypt_textures_and_shaders.sh";
+			shellScript = "cd $SRCROOT/../../../src/core/game/tools\n./encrypt_textures_and_shaders.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
