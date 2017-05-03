@@ -16,6 +16,7 @@
 #include "GpuTextureDataWrapper.h"
 #include "GpuTextureWrapper.h"
 #include "PlatformHelpers.h"
+#include "StringUtil.h"
 
 #include <string>
 
@@ -57,20 +58,24 @@ GpuTextureDataWrapper* Direct3DTextureLoader::loadTextureData(const char* textur
 	finalPath = textureFileName;
 #endif
     
-    // TODO, use XOR and then DirectX::CreateDDSTextureFromMemory
-    
     wchar_t* wString = new wchar_t[4096];
     MultiByteToWideChar(CP_ACP, 0, finalPath, -1, wString, 4096);
+    
+    auto blob = DX::ReadData(wString);
+    unsigned char* output = (unsigned char*) malloc(blob.size());
+    StringUtil::encryptDecrypt((unsigned char*)blob.data(), output, blob.size());
     
     ID3D11ShaderResourceView *pShaderResourceView;
     
 	ID3D11Device* d3dDevice = Direct3DManager::getD3dDevice();
-    DirectX::ThrowIfFailed(DirectX::CreateDDSTextureFromFile(d3dDevice, wString, nullptr, &pShaderResourceView));
+    DirectX::ThrowIfFailed(DirectX::CreateDDSTextureFromMemory(d3dDevice, (const uint8_t*)output, blob.size(), nullptr, &pShaderResourceView));
     
     GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(pShaderResourceView);
     
     delete wString;
     delete textureFileName;
+    
+    free((void *)output);
     
     return tdw;
 }
