@@ -62,47 +62,25 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\shader\*frag.hlsl">
-      <ShaderType>Pixel</ShaderType>
-      <ShaderModel>4.0_level_9_3</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\shader\*vert.hlsl">
-      <ShaderType>Vertex</ShaderType>
-      <ShaderModel>4.0_level_9_3</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\shader\*frag.hlsl">
-      <ShaderType>Pixel</ShaderType>
-      <ShaderModel>4.0_level_9_3</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\shader\*vert.hlsl">
-      <ShaderType>Vertex</ShaderType>
-      <ShaderModel>4.0_level_9_3</ShaderModel>
-    </FxCompile>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\win32\data\textures\*.ngt">
+      <ExcludedFromBuild>false</ExcludedFromBuild>
+      <DeploymentContent>false</DeploymentContent>
+      <Command>xcopy /y %(Identity) $(ProjectDir)</Command>
+      <Message>Copying %(Identity) to project directory</Message>
+      <Outputs>%(Filename).ngt</Outputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+      <LinkObjects>false</LinkObjects>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\*.png">
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\win32\data\shaders\*.ngs">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
-      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message>Converting to DDS %(Identity)</Message>
-      <Outputs>%(Filename).dds</Outputs>
+      <Command>xcopy /y %(Identity) $(ProjectDir)</Command>
+      <Message>Copying %(Identity) to project directory</Message>
+      <Outputs>%(Filename).ngs</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\*.png">
-      <ExcludedFromBuild>false</ExcludedFromBuild>
-      <DeploymentContent>false</DeploymentContent>
-      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message>Converting to DDS %(Identity)</Message>
-      <Outputs>%(Filename).dds</Outputs>
-      <TreatOutputAsContent>true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\level_editor\*.png">
-      <ExcludedFromBuild>false</ExcludedFromBuild>
-      <DeploymentContent>false</DeploymentContent>
-      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message>Converting to DDS %(Identity)</Message>
-      <Outputs>%(Filename).dds</Outputs>
-      <TreatOutputAsContent>true</TreatOutputAsContent>
+      <LinkObjects>false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -110,7 +88,7 @@
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
       <Command>xcopy /y %(Identity) $(ProjectDir)</Command>
-      <Message>Copying %(Identity) to sln folder</Message>
+      <Message>Copying %(Identity) to project directory</Message>
       <Outputs>%(Filename).wav</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
       <LinkObjects>false</LinkObjects>
@@ -119,7 +97,7 @@
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
       <Command>xcopy /y %(Identity) $(ProjectDir)</Command>
-      <Message>Copying %(Identity) to sln folder</Message>
+      <Message>Copying %(Identity) to project directory</Message>
       <Outputs>%(Filename).wav</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
       <LinkObjects>false</LinkObjects>
