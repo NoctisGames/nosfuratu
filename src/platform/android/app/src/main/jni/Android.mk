@@ -18,7 +18,7 @@ include $(PREBUILT_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := android_main
-LOCAL_CFLAGS    := -Wall -Wextra -DGL_GLEXT_PROTOTYPES=1 -O3 -fsigned-char -DNG_GAME_SERVICES
+LOCAL_CFLAGS    := -Wall -Wextra -DGL_GLEXT_PROTOTYPES=1 -O3 -fsigned-char -DNG_GAME_SERVICES -DNG_CHEATS
 
 #traverse all the directory and subdirectory
 define walk
