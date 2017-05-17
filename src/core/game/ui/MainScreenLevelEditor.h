@@ -91,7 +91,7 @@ private:
     
     void loadIfNecessary(MainScreen* ms);
     
-    bool isLevelValid(MainScreen* ms);
+    bool isLevelValid(MainScreen* ms, bool isSaving = false);
     
     void setMessage(const char *message);
     

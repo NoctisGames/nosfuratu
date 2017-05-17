@@ -431,7 +431,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
                     m_levelSelectorPanel->open();
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE:
-                    if (isLevelValid(ms))
+                    if (isLevelValid(ms, true))
                     {
                         resetEntities(true);
                         
@@ -778,7 +778,7 @@ void MainScreenLevelEditor::loadIfNecessary(MainScreen* ms)
     }
 }
 
-bool MainScreenLevelEditor::isLevelValid(MainScreen *ms)
+bool MainScreenLevelEditor::isLevelValid(MainScreen *ms, bool isSaving)
 {
     if (!m_game->hasEndSign())
     {
@@ -789,6 +789,18 @@ bool MainScreenLevelEditor::isLevelValid(MainScreen *ms)
     if (m_game->getJons().size() == 0)
     {
 		setMessage("Cannot save a level that does not contain a Jon");
+        return false;
+    }
+    
+    if (isSaving && m_game->getJons().size() > 1)
+    {
+        setMessage("Cannot save a level that contains multiple Jons");
+        return false;
+    }
+    
+    if (isSaving && m_game->getJon().getPosition().getX() > CAM_WIDTH / 2)
+    {
+        setMessage("Cannot save a level unless Jon is at the start of it");
         return false;
     }
     

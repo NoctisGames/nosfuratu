@@ -294,8 +294,10 @@ void Title::execute(MainScreen* ms)
 
 						m_isLevelEditor = isLevelEditor == 1;
 
-						std::string val = StringUtil::toString(isLevelEditor);
-						ms->m_saveData->setValue(key, val);
+                        {
+                            std::string val = StringUtil::toString(isLevelEditor);
+                            ms->m_saveData->setValue(key, val);
+                        }
 
 						ms->m_saveData->save();
 
