@@ -1,6 +1,6 @@
 //
 //  Text.cpp
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 10/6/13.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.

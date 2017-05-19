@@ -1,13 +1,13 @@
 //
 //  Text.h
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 10/6/13.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__Text__
-#define __noctisgames__Text__
+#ifndef __nosfuratu__Text__
+#define __nosfuratu__Text__
 
 #include "PhysicalEntity.h"
 
@@ -44,4 +44,4 @@ private:
     void updateCharColors();
 };
 
-#endif /* defined(__noctisgames__Text__) */
+#endif /* defined(__nosfuratu__Text__) */
