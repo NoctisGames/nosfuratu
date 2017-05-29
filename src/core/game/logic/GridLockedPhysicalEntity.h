@@ -1,13 +1,13 @@
 //
 //  GridLockedPhysicalEntity.h
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 2/6/16.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__GridLockedPhysicalEntity__
-#define __noctisgames__GridLockedPhysicalEntity__
+#ifndef __nosfuratu__GridLockedPhysicalEntity__
+#define __nosfuratu__GridLockedPhysicalEntity__
 
 #include "PhysicalEntity.h"
 
@@ -43,4 +43,4 @@ protected:
     int m_iGridHeight;
 };
 
-#endif /* defined(__noctisgames__GridLockedPhysicalEntity__) */
+#endif /* defined(__nosfuratu__GridLockedPhysicalEntity__) */

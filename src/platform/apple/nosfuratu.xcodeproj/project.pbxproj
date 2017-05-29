@@ -94,6 +94,8 @@
 		BB7639531E21B65000534DAB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB76393E1E21B17800534DAB /* GoogleService-Info.plist */; };
 		BB7639571E21B6DC00534DAB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639561E21B6DC00534DAB /* libz.tbd */; };
 		BB7639591E21B6E000534DAB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639581E21B6E000534DAB /* AddressBook.framework */; };
+		BB78DDD81EDC8D1B0039DCE1 /* GridLockedPhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB78DDD61EDC8D1B0039DCE1 /* GridLockedPhysicalEntity.cpp */; };
+		BB78DDD91EDC8D1B0039DCE1 /* GridLockedPhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB78DDD61EDC8D1B0039DCE1 /* GridLockedPhysicalEntity.cpp */; };
 		BB85AE7C1EBA2F9D00CC6BCA /* texture_026.ngt in Resources */ = {isa = PBXBuildFile; fileRef = BB85AE6C1EBA2F9D00CC6BCA /* texture_026.ngt */; };
 		BB85AE7D1EBA2F9D00CC6BCA /* texture_027.ngt in Resources */ = {isa = PBXBuildFile; fileRef = BB85AE6D1EBA2F9D00CC6BCA /* texture_027.ngt */; };
 		BB85AE7E1EBA2F9D00CC6BCA /* texture_028.ngt in Resources */ = {isa = PBXBuildFile; fileRef = BB85AE6E1EBA2F9D00CC6BCA /* texture_028.ngt */; };
@@ -205,8 +207,6 @@
 		BBAEF7641EA95B5800F0866E /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF55E1EA95B5800F0866E /* Entity.cpp */; };
 		BBAEF7651EA95B5800F0866E /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5601EA95B5800F0866E /* EntityManager.cpp */; };
 		BBAEF7661EA95B5800F0866E /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5601EA95B5800F0866E /* EntityManager.cpp */; };
-		BBAEF7671EA95B5800F0866E /* GridLockedPhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5621EA95B5800F0866E /* GridLockedPhysicalEntity.cpp */; };
-		BBAEF7681EA95B5800F0866E /* GridLockedPhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5621EA95B5800F0866E /* GridLockedPhysicalEntity.cpp */; };
 		BBAEF7691EA95B5800F0866E /* GridManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5641EA95B5800F0866E /* GridManager.cpp */; };
 		BBAEF76A1EA95B5800F0866E /* GridManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5641EA95B5800F0866E /* GridManager.cpp */; };
 		BBAEF76B1EA95B5800F0866E /* PhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAEF5661EA95B5800F0866E /* PhysicalEntity.cpp */; };
@@ -819,6 +819,8 @@
 		BB7639561E21B6DC00534DAB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		BB7639581E21B6E000534DAB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		BB76395A1E21B71A00534DAB /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = ../../3rdparty/Firebase/GoogleToolboxForMac.framework; sourceTree = "<group>"; };
+		BB78DDD61EDC8D1B0039DCE1 /* GridLockedPhysicalEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GridLockedPhysicalEntity.cpp; sourceTree = "<group>"; };
+		BB78DDD71EDC8D1B0039DCE1 /* GridLockedPhysicalEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridLockedPhysicalEntity.h; sourceTree = "<group>"; };
 		BB85AE6C1EBA2F9D00CC6BCA /* texture_026.ngt */ = {isa = PBXFileReference; lastKnownFileType = file; path = texture_026.ngt; sourceTree = "<group>"; };
 		BB85AE6D1EBA2F9D00CC6BCA /* texture_027.ngt */ = {isa = PBXFileReference; lastKnownFileType = file; path = texture_027.ngt; sourceTree = "<group>"; };
 		BB85AE6E1EBA2F9D00CC6BCA /* texture_028.ngt */ = {isa = PBXFileReference; lastKnownFileType = file; path = texture_028.ngt; sourceTree = "<group>"; };
@@ -907,8 +909,6 @@
 		BBAEF55F1EA95B5800F0866E /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		BBAEF5601EA95B5800F0866E /* EntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
 		BBAEF5611EA95B5800F0866E /* EntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityManager.h; sourceTree = "<group>"; };
-		BBAEF5621EA95B5800F0866E /* GridLockedPhysicalEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GridLockedPhysicalEntity.cpp; sourceTree = "<group>"; };
-		BBAEF5631EA95B5800F0866E /* GridLockedPhysicalEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridLockedPhysicalEntity.h; sourceTree = "<group>"; };
 		BBAEF5641EA95B5800F0866E /* GridManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GridManager.cpp; sourceTree = "<group>"; };
 		BBAEF5651EA95B5800F0866E /* GridManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridManager.h; sourceTree = "<group>"; };
 		BBAEF5661EA95B5800F0866E /* PhysicalEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicalEntity.cpp; sourceTree = "<group>"; };
@@ -1972,8 +1972,6 @@
 				BBAEF55F1EA95B5800F0866E /* Entity.h */,
 				BBAEF5601EA95B5800F0866E /* EntityManager.cpp */,
 				BBAEF5611EA95B5800F0866E /* EntityManager.h */,
-				BBAEF5621EA95B5800F0866E /* GridLockedPhysicalEntity.cpp */,
-				BBAEF5631EA95B5800F0866E /* GridLockedPhysicalEntity.h */,
 				BBAEF5641EA95B5800F0866E /* GridManager.cpp */,
 				BBAEF5651EA95B5800F0866E /* GridManager.h */,
 				BBAEF5661EA95B5800F0866E /* PhysicalEntity.cpp */,
@@ -2454,6 +2452,8 @@
 				BBAEF7041EA95B5800F0866E /* GameConstants.h */,
 				BBAEF7051EA95B5800F0866E /* GameMarker.cpp */,
 				BBAEF7061EA95B5800F0866E /* GameMarker.h */,
+				BB78DDD61EDC8D1B0039DCE1 /* GridLockedPhysicalEntity.cpp */,
+				BB78DDD71EDC8D1B0039DCE1 /* GridLockedPhysicalEntity.h */,
 				BBAEF7071EA95B5800F0866E /* Ground.cpp */,
 				BBAEF7081EA95B5800F0866E /* Ground.h */,
 				BBAEF7091EA95B5800F0866E /* GroundSoundType.h */,
@@ -3387,6 +3387,7 @@
 				BBAEF92B1EA95B5A00F0866E /* TextureSelectorPanel.cpp in Sources */,
 				BBAEF8971EA95B5900F0866E /* OpenGLShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BBAEF8C71EA95B5900F0866E /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
+				BB78DDD81EDC8D1B0039DCE1 /* GridLockedPhysicalEntity.cpp in Sources */,
 				BBAEF7C91EA95B5900F0866E /* Animation.cpp in Sources */,
 				BBAEF8FF1EA95B5900F0866E /* CutscenePanel.cpp in Sources */,
 				BBAEF7B11EA95B5800F0866E /* OpenGLProgram.cpp in Sources */,
@@ -3422,7 +3423,6 @@
 				BBE488E01EB299FE001423CA /* RTTI.cpp in Sources */,
 				BBAEF7CD1EA95B5900F0866E /* CircleBatcherFactory.cpp in Sources */,
 				BBAEF8171EA95B5900F0866E /* AudioEngineHelperFactory.cpp in Sources */,
-				BBAEF7671EA95B5800F0866E /* GridLockedPhysicalEntity.cpp in Sources */,
 				BBAEF8271EA95B5900F0866E /* SuperpoweredSound.cpp in Sources */,
 				BBAEF7EF1EA95B5900F0866E /* TransitionGpuProgramWrapper.cpp in Sources */,
 				BB44C8871DB03A7E003E633F /* pngwtran.c in Sources */,
@@ -3530,6 +3530,7 @@
 				BBAEF9301EA95B5A00F0866E /* TrashCan.cpp in Sources */,
 				BBAEF8DC1EA95B5900F0866E /* ExitGround.cpp in Sources */,
 				BBAEF7D01EA95B5900F0866E /* DummyGpuProgramWrapper.cpp in Sources */,
+				BB78DDD91EDC8D1B0039DCE1 /* GridLockedPhysicalEntity.cpp in Sources */,
 				BBAEF7B81EA95B5800F0866E /* OpenGLTextureGpuProgramWrapper.cpp in Sources */,
 				BBAEF8501EA95B5900F0866E /* Renderer.cpp in Sources */,
 				BBAEF80A1EA95B5900F0866E /* Line.cpp in Sources */,
@@ -3595,7 +3596,6 @@
 				BBAEF8EE1EA95B5900F0866E /* Jon.cpp in Sources */,
 				BBAEF7CE1EA95B5900F0866E /* CircleBatcherFactory.cpp in Sources */,
 				BBAEF8181EA95B5900F0866E /* AudioEngineHelperFactory.cpp in Sources */,
-				BBAEF7681EA95B5800F0866E /* GridLockedPhysicalEntity.cpp in Sources */,
 				BBAEF8281EA95B5900F0866E /* SuperpoweredSound.cpp in Sources */,
 				BBAEF7F01EA95B5900F0866E /* TransitionGpuProgramWrapper.cpp in Sources */,
 				BB44CB851DB053C0003E633F /* pngpread.c in Sources */,
