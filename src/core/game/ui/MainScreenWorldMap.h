@@ -174,8 +174,6 @@ public:
     
     virtual void update(float deltaTime);
     
-    Color& getColor();
-    
     int getWorld();
     
     int getLevel();
@@ -199,7 +197,6 @@ public:
     bool isCleared();
     
 protected:
-    Color m_color;
     LevelThumbnailType m_type;
     float m_fSelectTime;
     float m_fClearTime;
@@ -244,8 +241,6 @@ public:
     
     void close();
     
-    Color& getColor();
-    
     int getWorld();
     
     int getLevel();
@@ -255,7 +250,6 @@ public:
     bool isOpen();
     
 private:
-    Color m_color;
     int m_iWorld;
     int m_iLevel;
     bool m_userHasEnoughGoldenCats;
@@ -312,8 +306,6 @@ public:
     
     virtual void update(float deltaTime);
     
-    Color& getColor();
-    
     AbilitySlotType getType();
     
     bool isUnlocked();
@@ -323,7 +315,6 @@ public:
     void config(bool isUnlocked, bool isUnlocking);
     
 private:
-    Color m_color;
     AbilitySlotType m_type;
     bool m_isUnlocked;
     bool m_isUnlocking;
@@ -342,14 +333,11 @@ public:
     
     void config(float x, float y, int numGoldenCarrots);
     
-    Color& getColor();
-    
     int getNumGoldenCarrots();
     
     void onConfirm();
     
 private:
-    Color m_color;
     int m_iNumGoldenCarrots;
 };
 

@@ -12,7 +12,6 @@
 #include "GridLockedPhysicalEntity.h"
 
 #include "CollectibleItemType.h"
-#include "Color.h"
 
 #include "RTTI.h"
 
@@ -39,14 +38,11 @@ public:
     
     CollectibleItemType getType();
     
-    Color& getColor();
-    
     void setGame(Game* game);
     
 protected:
     Game* m_game;
     CollectibleItemType m_type;
-    Color m_color;
     float m_fOriginalY;
     int m_iCollectSoundId;
     bool m_isCollected;

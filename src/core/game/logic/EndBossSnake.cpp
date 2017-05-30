@@ -34,7 +34,6 @@ EndBossSnake* EndBossSnake::create(int gridX, int gridY, int type)
 EndBossSnake::EndBossSnake(int gridX, int gridY) : GridLockedPhysicalEntity(gridX, gridY, 54, 34, 0.25f, 0.12f, 0.5f, 0.88f),
 m_game(nullptr),
 m_state(EndBossSnakeState_Sleeping),
-m_color(1, 1, 1, 1),
 m_fTimeSinceLastVelocityCheck(0),
 m_iDamage(0),
 m_type(-1),
@@ -607,11 +606,6 @@ EndBossSnakeState EndBossSnake::getState()
     return m_state;
 }
 
-Color EndBossSnake::getColor()
-{
-    return m_color;
-}
-
 int EndBossSnake::getDamage()
 {
     return m_iDamage;
@@ -622,7 +616,7 @@ int EndBossSnake::getType()
     return m_type;
 }
 
-SnakeSpirit::SnakeSpirit(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 51.25f * GRID_CELL_SIZE, 22.5f * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
+SnakeSpirit::SnakeSpirit(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 51.25f * GRID_CELL_SIZE, 22.5f * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_isShowing(false)
 {
     // Empty
 }
@@ -678,12 +672,7 @@ EndBossSnake& SnakeSpirit::getEndBossSnake()
     return *m_endBossSnake;
 }
 
-Color& SnakeSpirit::getColor()
-{
-    return m_color;
-}
-
-SnakeHeadImpact::SnakeHeadImpact(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 32 * GRID_CELL_SIZE, 32 * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
+SnakeHeadImpact::SnakeHeadImpact(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 32 * GRID_CELL_SIZE, 32 * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_isShowing(false)
 {
     // Empty
 }
@@ -733,12 +722,7 @@ EndBossSnake& SnakeHeadImpact::getEndBossSnake()
     return *m_endBossSnake;
 }
 
-Color& SnakeHeadImpact::getColor()
-{
-    return m_color;
-}
-
-SnakeSkin::SnakeSkin(float x, float y, float width, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, width, height), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
+SnakeSkin::SnakeSkin(float x, float y, float width, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, width, height), m_endBossSnake(endBossSnake), m_isShowing(false)
 {
     // Empty
 }
@@ -791,11 +775,6 @@ void SnakeSkin::onDamageTaken()
 EndBossSnake& SnakeSkin::getEndBossSnake()
 {
     return *m_endBossSnake;
-}
-
-Color& SnakeSkin::getColor()
-{
-    return m_color;
 }
 
 SnakeEye::SnakeEye(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 1.037109375f, 1.037109375f), m_endBossSnake(endBossSnake), m_isWakingUp(false), m_isShowing(true)
@@ -889,7 +868,7 @@ bool SnakeTonque::isMouthOpen()
     return m_isMouthOpen;
 }
 
-SnakeBody::SnakeBody(float x, float y, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 30.65625f, height), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isDead(false)
+SnakeBody::SnakeBody(float x, float y, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 30.65625f, height), m_endBossSnake(endBossSnake), m_isDead(false)
 {
     update(0);
 }
@@ -959,11 +938,6 @@ void SnakeBody::onDeath()
 EndBossSnake& SnakeBody::getEndBossSnake()
 {
     return *m_endBossSnake;
-}
-
-Color& SnakeBody::getColor()
-{
-    return m_color;
 }
 
 RTTI_IMPL(EndBossSnake, GridLockedPhysicalEntity);

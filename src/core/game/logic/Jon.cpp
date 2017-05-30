@@ -37,7 +37,6 @@ m_actionState(ACTION_NONE),
 m_abilityState(ABILITY_NONE),
 m_groundSoundType(GROUND_SOUND_ID_NONE),
 m_lastSpringBouncedOn(nullptr),
-m_color(1, 1, 1, 1),
 m_fDeltaTime(0),
 m_fAbilityStateTime(0),
 m_iNumTriggeredJumps(0),
@@ -501,11 +500,6 @@ JonActionState Jon::getActionState()
 JonAbilityState Jon::getAbilityState()
 {
 	return m_abilityState;
-}
-
-Color Jon::getColor()
-{
-	return m_color;
 }
 
 float Jon::getActionStateTime()

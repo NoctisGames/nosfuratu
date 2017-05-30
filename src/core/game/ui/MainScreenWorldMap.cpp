@@ -1323,7 +1323,6 @@ WorldLevelCompletions::WorldLevelCompletions()
 }
 
 LevelThumbnail::LevelThumbnail(float x, float y, float width, float height, float selectTime, float clearTime, int world, int level, LevelThumbnailType type) : PhysicalEntity(x, y, width, height),
-m_color(1, 1, 1, 1),
 m_type(type),
 m_fSelectTime(selectTime),
 m_fClearTime(clearTime),
@@ -1375,11 +1374,6 @@ void LevelThumbnail::update(float deltaTime)
     {
         m_fStateTime += deltaTime;
     }
-}
-
-Color& LevelThumbnail::getColor()
-{
-    return m_color;
 }
 
 int LevelThumbnail::getWorld()
@@ -1464,7 +1458,6 @@ bool NormalLevelThumbnail::isBoss()
 }
 
 SpendGoldenCarrotsBubble::SpendGoldenCarrotsBubble() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.21507352941176f, CAM_HEIGHT * 0.30065359477124f),
-m_color(1, 1, 1, 1),
 m_iWorld(-1),
 m_iLevel(-1),
 m_userHasEnoughGoldenCats(false),
@@ -1528,11 +1521,6 @@ void SpendGoldenCarrotsBubble::close()
     m_fStateTime = 0;
     
     m_isOpen = false;
-}
-
-Color& SpendGoldenCarrotsBubble::getColor()
-{
-    return m_color;
 }
 
 int SpendGoldenCarrotsBubble::getWorld()
@@ -1678,7 +1666,6 @@ MidBossLevelThumbnail::MidBossLevelThumbnail(float x, float y, int world, int le
 }
 
 AbilitySlot::AbilitySlot(float x, float y, AbilitySlotType type) : PhysicalEntity(x, y, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.18627450980392f),
-m_color(1, 1, 1, 1),
 m_type(type),
 m_isUnlocked(false),
 m_isUnlocking(false),
@@ -1720,11 +1707,6 @@ void AbilitySlot::update(float deltaTime)
     }
 }
 
-Color& AbilitySlot::getColor()
-{
-    return m_color;
-}
-
 AbilitySlotType AbilitySlot::getType()
 {
     return m_type;
@@ -1755,7 +1737,7 @@ void AbilitySlot::config(bool isUnlocked, bool isUnlocking)
     }
 }
 
-GoldenCarrotsMarker::GoldenCarrotsMarker() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.12091503267974f), m_color(1, 1, 1, 1), m_iNumGoldenCarrots(0)
+GoldenCarrotsMarker::GoldenCarrotsMarker() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.12091503267974f), m_iNumGoldenCarrots(0)
 {
     // Empty
 }
@@ -1772,11 +1754,6 @@ void GoldenCarrotsMarker::config(float x, float y, int numGoldenCarrots)
     m_iNumGoldenCarrots = numGoldenCarrots;
     
     m_fStateTime = 0;
-}
-
-Color& GoldenCarrotsMarker::getColor()
-{
-    return m_color;
 }
 
 int GoldenCarrotsMarker::getNumGoldenCarrots()

@@ -11,7 +11,6 @@
 
 #include "GridLockedPhysicalEntity.h"
 
-#include "Color.h"
 #include "EnemyType.h"
 #include "EnemySpiritType.h"
 
@@ -52,8 +51,6 @@ public:
     
     EnemySpirit& getSpirit();
     
-    Color getColor();
-    
     bool isDying();
     
     bool isDead();
@@ -64,7 +61,6 @@ public:
 
 protected:
     Game* m_game;
-    Color m_color;
     bool m_isDying;
     bool m_isDead;
     

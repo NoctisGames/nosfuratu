@@ -24,8 +24,6 @@ public:
 
 	void setText(std::string text);
 
-    Color& getColor();
-
 	void setColor(float red, float green, float blue, float alpha);
     
     std::vector<Color>& getCharColors();
@@ -34,7 +32,6 @@ public:
 
 private:
 	std::string m_strText;
-    Color m_color;
     std::vector<Color> m_charColors;
 	float m_fX;
 	float m_fY;

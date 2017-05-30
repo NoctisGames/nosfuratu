@@ -11,7 +11,6 @@
 
 #include "PhysicalEntity.h"
 
-#include "Color.h"
 #include "GameConstants.h"
 #include "CutsceneEffectType.h"
 #include "CutscenePanelType.h"
@@ -49,8 +48,6 @@ public:
     
     CutscenePanelType getType();
     
-    Color& getColor();
-    
     NGRect& getCamBounds();
     
     bool isReadyForNextPanel();
@@ -59,7 +56,6 @@ protected:
     NGRect* m_camBounds;
     std::vector<CutsceneEffect*> m_cutsceneEffects;
     CutscenePanelType m_type;
-    Color m_color;
     bool m_isReadyForNextPanel;
 };
 
@@ -171,11 +167,8 @@ public:
     
     CutsceneEffectType getType();
     
-    Color& getColor();
-    
 private:
     CutsceneEffectType m_type;
-    Color m_color;
 };
 
 class CutsceneEffectShadowOne : public CutsceneEffect

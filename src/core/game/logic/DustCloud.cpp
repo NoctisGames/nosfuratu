@@ -22,7 +22,7 @@ DustCloud* DustCloud::create(float x, float y, DustCloudType type, float scale)
     }
 }
 
-DustCloud::DustCloud(float x, float y, float width, float height, DustCloudType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1)
+DustCloud::DustCloud(float x, float y, float width, float height, DustCloudType type) : PhysicalEntity(x, y, width, height), m_type(type)
 {
     // Empty
 }
@@ -46,11 +46,6 @@ void DustCloud::update(float deltaTime)
 DustCloudType DustCloud::getType()
 {
     return m_type;
-}
-
-Color DustCloud::getColor()
-{
-    return m_color;
 }
 
 RTTI_IMPL(DustCloud, PhysicalEntity);

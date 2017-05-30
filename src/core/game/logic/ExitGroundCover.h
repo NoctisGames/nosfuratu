@@ -12,7 +12,6 @@
 #include "PhysicalEntity.h"
 
 #include "ExitGroundCoverType.h"
-#include "Color.h"
 
 #include "RTTI.h"
 
@@ -29,11 +28,8 @@ public:
     
     ExitGroundCoverType getType();
     
-    Color getColor();
-    
 private:
     ExitGroundCoverType m_type;
-    Color m_color;
     bool m_isBreaking;
 };
 

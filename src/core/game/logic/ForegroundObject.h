@@ -13,7 +13,6 @@
 
 #include "GroundSoundType.h"
 #include "ForegroundObjectType.h"
-#include "Color.h"
 
 #include "RTTI.h"
 
@@ -52,11 +51,8 @@ public:
     
     void setGame(Game* game);
 
-    Color getColor();
-
 protected:
     Game* m_game;
-	Color m_color;
     
     virtual bool isEntityLanding(PhysicalEntity* entity, NGRect& bounds, float deltaTime);
     

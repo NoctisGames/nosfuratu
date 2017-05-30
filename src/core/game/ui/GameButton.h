@@ -12,7 +12,6 @@
 #include "PhysicalEntity.h"
 
 #include "GameButtonType.h"
-#include "Color.h"
 
 #include "RTTI.h"
 
@@ -28,8 +27,6 @@ public:
     virtual void update(float deltaTime);
     
     GameButtonType getType();
-    
-    Color& getColor();
     
     bool handleClick(Vector2D& touchPoint);
     
@@ -51,7 +48,6 @@ public:
     
 private:
     GameButtonType m_type;
-    Color m_color;
     float m_fOriginalWidth;
     float m_fOriginalHeight;
     bool m_isSelected;

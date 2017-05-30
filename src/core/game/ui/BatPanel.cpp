@@ -1549,7 +1549,7 @@ void BatPanel::showBatInstruction(BatInstructionType type)
     m_batInstruction->open(type, m_bat->getPosition().getX() + 2.7f, m_bat->getPosition().getY() + 2);
 }
 
-BatInstruction::BatInstruction() : PhysicalEntity(1337, 1337, 4.376953125f, 3.462890625f), m_type(BatInstructionType_None), m_color(1, 1, 1, 1), m_isClosing(false), m_isOpening(false), m_isOpen(false)
+BatInstruction::BatInstruction() : PhysicalEntity(1337, 1337, 4.376953125f, 3.462890625f), m_type(BatInstructionType_None), m_isClosing(false), m_isOpening(false), m_isOpen(false)
 {
     // Empty
 }
@@ -1622,11 +1622,6 @@ void BatInstruction::reset()
 BatInstructionType BatInstruction::getType()
 {
     return m_type;
-}
-
-Color& BatInstruction::getColor()
-{
-    return m_color;
 }
 
 bool BatInstruction::isOpening()

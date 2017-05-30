@@ -12,7 +12,6 @@
 #include "PhysicalEntity.h"
 
 #include "DustCloudType.h"
-#include "Color.h"
 
 #include "RTTI.h"
 
@@ -29,11 +28,8 @@ public:
     
     DustCloudType getType();
     
-    Color getColor();
-    
 private:
     DustCloudType m_type;
-    Color m_color;
 };
 
 #endif /* defined(__nosfuratu__DustCloud__) */

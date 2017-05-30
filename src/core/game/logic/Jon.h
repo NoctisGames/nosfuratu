@@ -12,7 +12,6 @@
 #include "GridLockedPhysicalEntity.h"
 
 #include "StateMachine.h"
-#include "Color.h"
 #include "GroundSoundType.h"
 #include "JonFormState.h"
 #include "JonShadowState.h"
@@ -82,8 +81,6 @@ public:
     JonActionState getActionState();
     
     JonAbilityState getAbilityState();
-    
-    Color getColor();
     
     float getActionStateTime();
     
@@ -195,7 +192,6 @@ private:
     JonAbilityState m_abilityState;
     GroundSoundType m_groundSoundType;
     ForegroundObject* m_lastSpringBouncedOn;
-    Color m_color;
     float m_fDeltaTime;
     float m_fActionStateTime;
     float m_fAbilityStateTime;

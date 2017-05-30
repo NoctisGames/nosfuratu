@@ -69,7 +69,7 @@ GameButton* GameButton::create(GameButtonType type)
     assert(false);
 }
 
-GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_fOriginalWidth(width), m_fOriginalHeight(height), m_isSelected(false), m_isShrinking(false), m_isHidden(false), m_isAlt(false)
+GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_fOriginalWidth(width), m_fOriginalHeight(height), m_isSelected(false), m_isShrinking(false), m_isHidden(false), m_isAlt(false)
 {
     // Empty
 }
@@ -114,11 +114,6 @@ void GameButton::update(float deltaTime)
 GameButtonType GameButton::getType()
 {
     return m_type;
-}
-
-Color& GameButton::getColor()
-{
-    return m_color;
 }
 
 bool GameButton::handleClick(Vector2D& touchPoint)

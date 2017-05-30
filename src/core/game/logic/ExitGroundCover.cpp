@@ -10,7 +10,7 @@
 
 #include "ExitGroundCover.h"
 
-ExitGroundCover::ExitGroundCover(float x, float y, float width, float height, ExitGroundCoverType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_isBreaking(false)
+ExitGroundCover::ExitGroundCover(float x, float y, float width, float height, ExitGroundCoverType type) : PhysicalEntity(x, y, width, height), m_type(type), m_isBreaking(false)
 {
     // Empty
 }
@@ -42,11 +42,6 @@ void ExitGroundCover::triggerHit()
 ExitGroundCoverType ExitGroundCover::getType()
 {
     return m_type;
-}
-
-Color ExitGroundCover::getColor()
-{
-    return m_color;
 }
 
 RTTI_IMPL(ExitGroundCover, PhysicalEntity);

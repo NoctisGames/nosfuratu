@@ -186,7 +186,7 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-ForegroundObject::ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_groundSoundType(groundSoundType), m_game(nullptr), m_color(1, 1, 1, 1)
+ForegroundObject::ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_groundSoundType(groundSoundType), m_game(nullptr)
 {
     // Empty
 }
@@ -244,11 +244,6 @@ GroundSoundType ForegroundObject::getGroundSoundType()
 void ForegroundObject::setGame(Game* game)
 {
     m_game = game;
-}
-
-Color ForegroundObject::getColor()
-{
-    return m_color;
 }
 
 #pragma mark protected

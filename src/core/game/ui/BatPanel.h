@@ -11,7 +11,6 @@
 
 #include "PhysicalEntity.h"
 
-#include "Color.h"
 #include "BatInstructionType.h"
 #include "BatGoalType.h"
 
@@ -106,15 +105,12 @@ public:
     
     BatInstructionType getType();
     
-    Color& getColor();
-    
     bool isOpening();
     
     bool isOpen();
     
 private:
     BatInstructionType m_type;
-    Color m_color;
     bool m_isClosing;
     bool m_isOpening;
     bool m_isOpen;

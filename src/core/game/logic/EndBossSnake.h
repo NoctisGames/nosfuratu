@@ -12,7 +12,6 @@
 #include "GridLockedPhysicalEntity.h"
 
 #include "EndBossSnakeState.h"
-#include "Color.h"
 
 #include "RTTI.h"
 
@@ -67,8 +66,6 @@ public:
     
     EndBossSnakeState getState();
     
-    Color getColor();
-    
     int getDamage();
     
     int getType();
@@ -83,7 +80,6 @@ private:
     SnakeSpirit* m_snakeSpirit;
     Game* m_game;
     EndBossSnakeState m_state;
-    Color m_color;
     float m_fTimeSinceLastVelocityCheck;
     int m_iDamage;
     int m_type;
@@ -105,11 +101,8 @@ public:
     
     EndBossSnake& getEndBossSnake();
     
-    Color& getColor();
-    
 private:
     EndBossSnake* m_endBossSnake;
-    Color m_color;
     bool m_isShowing;
 };
 
@@ -126,11 +119,8 @@ public:
     
     EndBossSnake& getEndBossSnake();
     
-    Color& getColor();
-    
 private:
     EndBossSnake* m_endBossSnake;
-    Color m_color;
     bool m_isShowing;
 };
 
@@ -147,11 +137,8 @@ public:
     
     EndBossSnake& getEndBossSnake();
     
-    Color& getColor();
-    
 private:
     EndBossSnake* m_endBossSnake;
-    Color m_color;
     bool m_isShowing;
 };
 
@@ -211,11 +198,8 @@ public:
     
     EndBossSnake& getEndBossSnake();
     
-    Color& getColor();
-    
 private:
     EndBossSnake* m_endBossSnake;
-    Color m_color;
     bool m_isDead;
 };
 

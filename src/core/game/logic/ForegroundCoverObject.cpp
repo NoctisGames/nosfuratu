@@ -59,7 +59,7 @@ ForegroundCoverObject* ForegroundCoverObject::create(int gridX, int gridY, int t
     assert(false);
 }
 
-ForegroundCoverObject::ForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_groundSoundType(groundSoundType), m_game(nullptr), m_color(1, 1, 1, 1)
+ForegroundCoverObject::ForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_groundSoundType(groundSoundType), m_game(nullptr)
 {
     // Empty
 }
@@ -117,11 +117,6 @@ GroundSoundType ForegroundCoverObject::getGroundSoundType()
 void ForegroundCoverObject::setGame(Game* game)
 {
     m_game = game;
-}
-
-Color ForegroundCoverObject::getColor()
-{
-    return m_color;
 }
 
 LandableForegroundCoverObject::LandableForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundCoverObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight)

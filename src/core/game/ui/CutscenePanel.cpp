@@ -18,7 +18,7 @@
 
 #include <assert.h>
 
-CutscenePanel::CutscenePanel(CutscenePanelType type, float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_camBounds(new NGRect(0, 0, CAM_WIDTH, CAM_HEIGHT)), m_type(type), m_color(1, 1, 1, 1), m_isReadyForNextPanel(false)
+CutscenePanel::CutscenePanel(CutscenePanelType type, float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_camBounds(new NGRect(0, 0, CAM_WIDTH, CAM_HEIGHT)), m_type(type), m_isReadyForNextPanel(false)
 {
     // Empty
 }
@@ -50,11 +50,6 @@ std::vector<CutsceneEffect*>& CutscenePanel::getCutsceneEffects()
 CutscenePanelType CutscenePanel::getType()
 {
     return m_type;
-}
-
-Color& CutscenePanel::getColor()
-{
-    return m_color;
 }
 
 NGRect& CutscenePanel::getCamBounds()
@@ -414,7 +409,7 @@ CutsceneEffect* CutsceneEffect::create(CutsceneEffectType type)
     assert(false);
 }
 
-CutsceneEffect::CutsceneEffect(float x, float y, float width, float height, CutsceneEffectType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1)
+CutsceneEffect::CutsceneEffect(float x, float y, float width, float height, CutsceneEffectType type) : PhysicalEntity(x, y, width, height), m_type(type)
 {
     // Empty
 }
@@ -422,11 +417,6 @@ CutsceneEffect::CutsceneEffect(float x, float y, float width, float height, Cuts
 CutsceneEffectType CutsceneEffect::getType()
 {
     return m_type;
-}
-
-Color& CutsceneEffect::getColor()
-{
-    return m_color;
 }
 
 CutsceneEffectShadowOne::CutsceneEffectShadowOne() : CutsceneEffect(CAM_WIDTH, 0, CAM_WIDTH * 0.60375f, CAM_HEIGHT * 0.56f, CutsceneEffectType_Shadow_One)

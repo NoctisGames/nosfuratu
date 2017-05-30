@@ -37,7 +37,7 @@ CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-CollectibleItem::CollectibleItem(int gridX, int gridY, int gridWidth, int gridHeight, int collectSoundId, CollectibleItemType type, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_color(1, 1, 1, 1), m_iCollectSoundId(collectSoundId), m_isCollected(false), m_isOnScreen(false), m_game(nullptr)
+CollectibleItem::CollectibleItem(int gridX, int gridY, int gridWidth, int gridHeight, int collectSoundId, CollectibleItemType type, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_iCollectSoundId(collectSoundId), m_isCollected(false), m_isOnScreen(false), m_game(nullptr)
 {
     updateBounds();
     
@@ -124,11 +124,6 @@ bool CollectibleItem::isCollected()
 CollectibleItemType CollectibleItem::getType()
 {
     return m_type;
-}
-
-Color& CollectibleItem::getColor()
-{
-    return m_color;
 }
 
 void CollectibleItem::setGame(Game* game)
