@@ -15,6 +15,7 @@
 
 #include "NGRect.h"
 #include "OverlapTester.h"
+#include "EntityUtils.h"
 
 #include <math.h>
 
@@ -132,7 +133,7 @@ bool Ground::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             if (entityBottom >= itemTopReq)
             {
-                entity->placeOn(itemTop);
+                EntityUtils::placeOn(entity, itemTop);
                 
                 Jon *jon = nullptr;
                 if (entity->getRTTI().derivesFrom(Jon::rtti))

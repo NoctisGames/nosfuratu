@@ -77,6 +77,34 @@ public:
 		entity.snapToGrid(gridCellSizeScalar);
     }
     
+    static void placeOn(PhysicalEntity* entity, float itemTopY)
+    {
+        if (entity->getRTTI().derivesFrom(GridLockedPhysicalEntity::rtti))
+        {
+            entity->getPosition().setY(itemTopY);
+            
+            GridLockedPhysicalEntity* glpe = reinterpret_cast<GridLockedPhysicalEntity*>((entity));
+            
+            if (glpe->m_fBoundsY > 0)
+            {
+                entity->getPosition().sub(0, entity->getHeight() * glpe->m_fBoundsY);
+                entity->getPosition().add(0, entity->getHeight() / 2 * .99f);
+            }
+            else
+            {
+                entity->getPosition().add(0, entity->getMainBounds().getHeight() / 2 * .99f);
+            }
+            
+            glpe->updateBounds();
+        }
+        else
+        {
+            entity->getPosition().setY(itemTopY + entity->getMainBounds().getHeight() / 2 * .99f);
+            
+            entity->updateBounds();
+        }
+    }
+    
     static void placeUnder(GridLockedPhysicalEntity& entity, GridLockedPhysicalEntity& under, int gridCellSizeScalar)
     {
         float boundsHeight = entity.getMainBounds().getHeight();

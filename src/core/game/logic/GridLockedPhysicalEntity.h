@@ -18,13 +18,16 @@ class GridLockedPhysicalEntity : public PhysicalEntity
     RTTI_DECL;
     
 public:
+    float m_fBoundsX;
+    float m_fBoundsY;
+    float m_fBoundsWidth;
+    float m_fBoundsHeight;
+    
     GridLockedPhysicalEntity(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual ~GridLockedPhysicalEntity();
     
 	virtual void updateBounds();
-
-	virtual void placeOn(float itemTopY);
 		
 	virtual void snapToGrid(int gridCellSizeScalar = 1);
 
@@ -33,10 +36,6 @@ public:
     int getGridY();
     
 protected:
-	float m_fBoundsX;
-	float m_fBoundsY;
-	float m_fBoundsWidth;
-	float m_fBoundsHeight;
     int m_iGridX;
     int m_iGridY;
     int m_iGridWidth;

@@ -153,7 +153,7 @@ bool LandableForegroundCoverObject::isEntityLanding(PhysicalEntity* entity, floa
             
             if (jonLowerLeftY >= itemTopReq)
             {
-                entity->placeOn(getMainBounds().getTop());
+                EntityUtils::placeOn(entity, getMainBounds().getTop());
                 
                 Jon *jon = nullptr;
                 if (entity->getRTTI().derivesFrom(Jon::rtti))

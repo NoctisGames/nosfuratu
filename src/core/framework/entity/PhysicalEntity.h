@@ -34,8 +34,6 @@ public:
 
     virtual void updateBounds();
 
-	virtual void placeOn(float itemTopY);
-
     Vector2D& getPosition();
     
     Vector2D& getVelocity();

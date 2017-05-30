@@ -92,7 +92,7 @@ bool ExitGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             if (isLanding)
             {
-				entity->placeOn(itemTop);
+                EntityUtils::placeOn(entity, itemTop);
                 
                 Jon *jon = nullptr;
                 if (entity->getRTTI().derivesFrom(Jon::rtti))
@@ -193,7 +193,7 @@ bool CaveDeepSmallWaterfall::isEntityLanding(PhysicalEntity* entity, float delta
             
             if (jonBottomY >= itemTopReq && (jonRightX < pitEntranceLeft || jonLeftX > pitEntranceRight))
             {
-				entity->placeOn(itemTop);
+				EntityUtils::placeOn(entity, itemTop);
                 
                 Jon *jon = nullptr;
                 if (entity->getRTTI().derivesFrom(Jon::rtti))

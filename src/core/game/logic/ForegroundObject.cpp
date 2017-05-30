@@ -277,7 +277,7 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, NGRect& bounds, f
 
 			if (jonLowerLeftY >= itemTopReq)
 			{
-				entity->placeOn(bounds.getTop());
+                EntityUtils::placeOn(entity, bounds.getTop());
 
                 Jon *jon = nullptr;
                 if (entity->getRTTI().derivesFrom(Jon::rtti))
@@ -764,7 +764,7 @@ bool JumpSpringLightFlush::isEntityLanding(PhysicalEntity* entity, NGRect& bound
         {
             float itemTop = bounds.getTop();
             
-            entity->placeOn(itemTop);
+            EntityUtils::placeOn(entity, itemTop);
             
             Jon *jon = nullptr;
             if (entity->getRTTI().derivesFrom(Jon::rtti))

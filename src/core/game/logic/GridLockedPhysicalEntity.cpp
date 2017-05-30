@@ -60,23 +60,6 @@ void GridLockedPhysicalEntity::snapToGrid(int gridCellSizeScalar)
 	updateBounds();
 }
 
-void GridLockedPhysicalEntity::placeOn(float itemTopY)
-{
-	m_position.setY(itemTopY);
-
-	if (m_fBoundsY > 0)
-	{
-		m_position.sub(0, getHeight() * m_fBoundsY);
-		m_position.add(0, getHeight() / 2 * .99f);
-	}
-	else
-	{
-		m_position.add(0, getMainBounds().getHeight() / 2 * .99f);
-	}
-	
-	updateBounds();
-}
-
 int GridLockedPhysicalEntity::getGridX()
 {
     return m_iGridX;
