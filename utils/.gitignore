@@ -1,0 +1,13 @@
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# NetBeans
+*/nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
